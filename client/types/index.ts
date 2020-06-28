@@ -10,6 +10,9 @@ export interface IApi {
 
   save(data: unknown): void
 }
+export interface IUserSettings {
+  name: string
+}
 
 export interface IUserLoginData {
   grant_type: string
