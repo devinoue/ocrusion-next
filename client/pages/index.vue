@@ -38,9 +38,10 @@ export default {
 
     onMounted(async () => {
       try {
-        const res = await axios.get('http://localhost:8000/api/book')
+        const res = await axios.get('http://localhost:8080/api/book')
         list2.value = res ?? {}
       } catch (e) {
+        console.log(e)
         console.log(e.response)
       }
     })

@@ -50,6 +50,11 @@ class ImgDirRepository
     $model->user_id = $imgDir->getUserId();
     $model->original_zip = $imgDir->getOriginalZip();
     $model->book_id = $imgDir->getBookId();
+    $model->book_name = $imgDir->getBookName();
+    $model->description = $imgDir->getDescription();
+    $model->book_options = $imgDir->getBookOptions();
+    $model->open_type = $imgDir->getOpenType();
+
     $model->state = 0;
     $model->save();
   }

@@ -23,7 +23,6 @@ export default {
     ],
     link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
   },
-  srcDir: 'client/',
   /*
    ** Global CSS
    */

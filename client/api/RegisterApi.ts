@@ -1,5 +1,5 @@
-import axios, {AxiosInstance} from 'axios'
-import {IApi, IUserRegisterData} from '../types'
+import axios, { AxiosInstance } from 'axios'
+import { IApi, IUserRegisterData } from '../types'
 import BaseApi from './BaseApi'
 
 export class RegisterApi extends BaseApi implements IApi {
@@ -7,12 +7,14 @@ export class RegisterApi extends BaseApi implements IApi {
 
   constructor() {
     super()
-    this.axios = axios.create({baseURL: BaseApi.baseURL, headers: BaseApi.getHeaders()})
+    this.axios = axios.create({
+      baseURL: BaseApi.baseURL,
+      headers: BaseApi.getHeaders(),
+    })
   }
 
   post(data: IUserRegisterData) {
-
-    data['password_confirmation'] = data.passwordConfirmation
+    data.password_confirmation = data.passwordConfirmation
     return this.axios.post('/api/register', data)
   }
 

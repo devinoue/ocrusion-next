@@ -63,6 +63,23 @@ final class ImgDir
     return $this->bookId->value();
   }
 
+  public function getBookName(): string
+  {
+    return $this->bookName->value();
+  }
+
+  public function getDescription(): string
+  {
+    return $this->description->value();
+  }
+  public function getBookOptions(): string
+  {
+    return $this->bookOptions->value();
+  }
+  public function getOpenType(): int
+  {
+    return $this->openType->value();
+  }
   public function changeStateUninitialized()
   {
     return $this->state = $this->OcrStatus["UNINITIALIZED"];

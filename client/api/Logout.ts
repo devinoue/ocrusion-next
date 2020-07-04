@@ -1,9 +1,8 @@
-import axios, {AxiosInstance} from 'axios'
-import {IApi, IUserLoginData, IUserRegisterData} from '../types'
+import axios, { AxiosInstance } from 'axios'
+import { IApi, IUserLoginData, IUserRegisterData } from '../types'
 import BaseApi from './BaseApi'
 
 export class LogoutApi extends BaseApi implements IApi {
-
   constructor() {
     super()
   }

@@ -25,8 +25,8 @@ class UserLevelRepository
       $userLevel = new Entities\UserLevel($userId, $times, $level);
       return $userLevel;
     }
-
-    $times = new Times(Times::splitTimes($model->times));
+    // $times = new Times(Times::splitTimes($model->times));
+    $times = new Times(array());
     $level = new Level($model->level);
     $userLevel = new Entities\UserLevel($userId, $times, $level);
     return $userLevel;

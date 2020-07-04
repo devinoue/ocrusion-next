@@ -5,7 +5,7 @@
     <input v-model="password" type="text" class="shadow" />
     <button type="text" class="shadow" @click="login()">押す</button>
 
-    <input type="checkbox" v-model="remember" name="remember" />記憶する
+    <input v-model="remember" type="checkbox" name="remember" />記憶する
   </div>
 </template>
 <script lang="ts">
@@ -14,7 +14,7 @@ import { ref, SetupContext } from '@vue/composition-api'
 export default {
   name: 'Login',
   setup(_props: {}, { root }: SetupContext) {
-    const email = ref<string>('bb8@ko.com')
+    const email = ref<string>('bb@ko.com')
     const password = ref('hogehoge')
 
     const user = ref({})

@@ -69,7 +69,7 @@ export default {
     const batch = async () => {
       const url = `/api/batch`
       try {
-        const baseApi = axios.create({ baseURL: 'http://localhost:8000' })
+        const baseApi = axios.create({ baseURL: 'http://localhost:8080' })
         const res = await baseApi.get(url)
         console.log(res)
       } catch (e) {
@@ -88,7 +88,7 @@ export default {
       console.log(url)
       const headers = { 'content-type': `multipart/form-data` }
       try {
-        const baseApi = axios.create({ baseURL: 'http://localhost:8000' })
+        const baseApi = axios.create({ baseURL: 'http://localhost:8080' })
         const res = await baseApi.post(url, params, {
           headers,
         })
