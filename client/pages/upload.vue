@@ -28,22 +28,16 @@
         @change="onDrop"
       />
     </div>
+    書名: <input v-model="bookName" type="text" placeholder="無題" /><br />
+    説明: <textarea v-model="description"></textarea><br />
+    OCRデータを公開しますか？
+    <input v-model="openType" type="checkbox" /><br />
+    その他の情報 :
+    <input v-model="bookOptions" type="text" /><br />
 
-    <input
-      v-model="checkbox"
-      type="checkbox"
-      :rules="[(v) => !!v || '必ず免責事項をお読みになってください']"
-      label=" 注意事項を了承する"
-      required
-    />
-
-    <button
-      color="blue-grey"
-      class="white--text"
-      :disabled="!checkbox"
-      large
-      @click.stop="upload()"
-    >
+    注意事項を了承する<input v-model="isConfirm" type="checkbox" required />
+    <br />
+    <button class="" :disabled="!isConfirm" @click.stop="upload()">
       アップロードする
     </button>
 
@@ -65,7 +59,13 @@ export default {
     const message = ref('')
     const dragging = ref(false)
     const isSuccess = ref(false)
-    const checkbox = ref(true)
+    const isConfirm = ref(true)
+
+    const bookName = ref('本の名前が入る')
+    const description = ref('説明')
+    const openType = ref(1)
+    const bookOptions = ref('')
+
     const batch = async () => {
       const url = `/api/batch`
       try {
@@ -77,10 +77,20 @@ export default {
       }
     }
     const upload = async () => {
+      if (file.value === '') {
+        alert('ファイルがセットされていません。')
+        return
+      }
+
+      if (bookName.value === '') {
+        bookName.value = '無題'
+      }
+
       const params = new FormData()
-      params.append('bookName', 'テスト')
-      params.append('description', 'テスト')
-      params.append('description', 'テスト')
+      params.append('bookName', bookName.value)
+      params.append('description', description.value)
+      params.append('openType', openType.value)
+      params.append('bookOptions', bookOptions.value)
       params.append('user_id', userId.value)
       params.append('upfile', file.value)
 
@@ -94,6 +104,7 @@ export default {
         })
         console.log(res)
       } catch (e) {
+        // e.responseが空ならおそらく起動していない
         console.log(e.response)
       }
     }
@@ -110,10 +121,14 @@ export default {
       message,
       dragging,
       isSuccess,
-      checkbox,
+      isConfirm,
       batch,
       upload,
       onDrop,
+      bookName,
+      description,
+      openType,
+      bookOptions,
     }
   },
 }
