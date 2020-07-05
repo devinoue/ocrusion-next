@@ -80,12 +80,12 @@ class UploadFileUseCase
 
         $originalZip = new OriginalZip($request->file('upfile')->getClientOriginalName());
         $userId = new UserId($request->user_id);
-        $bookName = new BookName($request->bookName ?? "");//
-    $description = new Description($request->description ?? "");//
-    $bookOptions = new BookOptions($request->bookOptions ?? "");//
-    $openType = new OpenType($request->openType ?? 0);//
+        $bookName = new BookName($request->bookName ?? "");
+        $description = new Description($request->description ?? "");
+        $bookOptions = new BookOptions($request->bookOptions ?? "");
+        $openType = new OpenType(intval($request->openType) ?? 0);
 
-    $imgDir = new ImgDir($userId, $originalZip, $bookId, $bookName, $description, $bookOptions, $openType);
+        $imgDir = new ImgDir($userId, $originalZip, $bookId, $bookName, $description, $bookOptions, $openType);
         $imgDirRepository->save($imgDir);
         $queueRepository->save(new Queue($userId, $bookId));
 
@@ -124,8 +124,8 @@ class UploadFileUseCase
     private function validateImage(Request $request)
     {
         $validator = Validator::make($request->all(), [
-      'upfile' => 'required|max:30720'
-    ]);
+            'upfile' => 'required|max:30720'
+        ]);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
