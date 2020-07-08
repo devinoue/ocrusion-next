@@ -20,7 +20,7 @@ final class State
         $this->createdAt = $createdAt;
     }
 
-    public function getUserId(): int
+    public function getUserId(): string
     {
         return $this->userId->value();
     }
