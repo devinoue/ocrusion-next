@@ -11,16 +11,18 @@ final class Queue
 {
     private $userId;
     private $bookId;
+
     public function __construct(UserId $userId, BookId $bookId)
     {
         $this->userId = $userId;
         $this->bookId = $bookId;
     }
 
-    public function getUserId(): int
+    public function getUserId(): string
     {
         return $this->userId->value();
     }
+
     public function getBookId(): string
     {
         return $this->bookId->value();

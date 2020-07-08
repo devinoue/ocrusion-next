@@ -15,7 +15,7 @@ class CreateOcrTextsTable extends Migration
     {
         Schema::create('ocr_texts', function (Blueprint $table) {
             $table->string('book_id');
-            $table->integer('user_id')->unsigned();
+            $table->string('user_id');
             $table->string('img_path');
             $table->string('text_data', 10000);
             $table->timestamps();
