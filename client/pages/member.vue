@@ -2,7 +2,7 @@
   <div>
     メンバーページです
     <a class="dropdown-item pl-3" href="#" @click.prevent="logout">
-      ロギアウト
+      ログアウト
     </a>
   </div>
 </template>
