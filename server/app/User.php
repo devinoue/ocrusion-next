@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'id', 'name', 'email', 'password',
     ];
 
     /**
@@ -49,13 +49,5 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
-    }
-
-    // コンストラクタを追加
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->attributes['id'] = Utils::generateRamdomString(36);
     }
 }
