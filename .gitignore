@@ -92,6 +92,7 @@ sw.*
 
 /client/node_modules
 /server/public/hot
+/server/public/tmp
 /server/public/storage
 /server/storage/*.key
 /server/vendor
