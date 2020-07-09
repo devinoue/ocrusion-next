@@ -30,8 +30,7 @@
     </div>
     書名: <input v-model="bookName" type="text" placeholder="無題" /><br />
     説明: <textarea v-model="description"></textarea><br />
-    OCRデータを公開しますか？
-    <input v-model="openType" type="checkbox" /><br />
+
     その他の情報 :
     <input v-model="bookOptions" type="text" /><br />
 
@@ -54,7 +53,7 @@ import axios from 'axios'
 export default {
   name: 'Upload',
   setup() {
-    const userId = ref('Qlj1b763pjqFul3qFUet56Xg9BorQZLDhL3r')
+    const userId = ref('yQxPliaF1dtJtx7K8cyMQHAzxgmpxdH3mfNR')
     const file = ref('')
     const message = ref('')
     const dragging = ref(false)
@@ -63,7 +62,6 @@ export default {
 
     const bookName = ref('本の名前が入る')
     const description = ref('説明')
-    const openType = ref(1)
     const bookOptions = ref('')
 
     const batch = async () => {
@@ -89,7 +87,6 @@ export default {
       const params = new FormData()
       params.append('bookName', bookName.value)
       params.append('description', description.value)
-      params.append('openType', openType.value)
       params.append('bookOptions', bookOptions.value)
       params.append('user_id', userId.value)
       params.append('upfile', file.value)
@@ -127,7 +124,6 @@ export default {
       onDrop,
       bookName,
       description,
-      openType,
       bookOptions,
     }
   },

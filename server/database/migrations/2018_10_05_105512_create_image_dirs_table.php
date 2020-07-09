@@ -21,7 +21,6 @@ class CreateImageDirsTable extends Migration
             $table->string('book_name')->default("");
             $table->string('description')->default("");
             $table->string('book_options')->default("");
-            $table->integer('open_type')->default(0);
             $table->boolean('state')->default(false);
             $table->timestamps();
         });
