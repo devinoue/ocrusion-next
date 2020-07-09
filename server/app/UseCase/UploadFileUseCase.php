@@ -12,7 +12,6 @@ use App\Domain\ValueObject\BookId;
 use App\Domain\ValueObject\ImgDir\OriginalZip;
 use App\Domain\ValueObject\ImgDir\BookName;
 use App\Domain\ValueObject\ImgDir\BookOptions;
-use App\Domain\ValueObject\ImgDir\OpenType;
 use App\Domain\ValueObject\ImgDir\Description;
 
 use App\Domain\Entities\ImgDir;
@@ -83,9 +82,8 @@ class UploadFileUseCase
         $bookName = new BookName($request->bookName ?? "");
         $description = new Description($request->description ?? "");
         $bookOptions = new BookOptions($request->bookOptions ?? "");
-        $openType = new OpenType(intval($request->openType) ?? 0);
 
-        $imgDir = new ImgDir($userId, $originalZip, $bookId, $bookName, $description, $bookOptions, $openType);
+        $imgDir = new ImgDir($userId, $originalZip, $bookId, $bookName, $description, $bookOptions);
         $imgDirRepository->save($imgDir);
         $queueRepository->save(new Queue($userId, $bookId));
 

@@ -6,7 +6,6 @@ namespace App\Domain\Entities;
 use App\Domain\ValueObject\ImgDir\BookName;
 use App\Domain\ValueObject\ImgDir\BookOptions;
 use App\Domain\ValueObject\ImgDir\Description;
-use App\Domain\ValueObject\ImgDir\OpenType;
 use App\Domain\ValueObject\UserId;
 use App\Domain\ValueObject\ImgDir\OriginalZip;
 use App\Domain\ValueObject\BookId;
@@ -20,7 +19,7 @@ final class ImgDir
     private BookName $bookName;
     private Description $description;
     private BookOptions $bookOptions;
-    private OpenType $openType;
+
 
     private $OcrStatus = [
         "UNINITIALIZED" => 0,
@@ -34,8 +33,7 @@ final class ImgDir
         BookId $bookId,
         BookName $bookName,
         Description $description,
-        BookOptions $bookOptions,
-        OpenType $openType
+        BookOptions $bookOptions
     )
     {
         $this->userId = $userId;
@@ -45,7 +43,7 @@ final class ImgDir
         $this->bookName = $bookName;
         $this->description = $description;
         $this->bookOptions = $bookOptions;
-        $this->openType = $openType;
+
     }
 
     public function getUserId(): string
@@ -80,7 +78,7 @@ final class ImgDir
 
     public function getOpenType(): int
     {
-        return $this->openType->value();
+        //
     }
 
     public function changeStateUninitialized()
