@@ -53,14 +53,17 @@ final class UserLevel
     private function getLimitSize(): int
     {
         switch ($this->getLevel()) {
-            case 0: //
-                return 300000;
+            case 0: // free plan 50MB
+                return 50 * 1000;
                 break;
-            case 1: //
-                return 300000;
+            case 1: // special plan 500MB
+                return 500 * 1000;
+                break;
+            case 2: // premium plan 10GB
+                return 10000 * 1000;
                 break;
             default:
-                return 0;
+                return 50 * 1000;
         }
     }
 
