@@ -1,6 +1,6 @@
 <template>
   <div>
-    名前: <input type="text" v-model="name" /><br />
+    名前: <input v-model="name" type="text" /><br />
     <button @click="onSettingChanged()">ボタン</button>
   </div>
 </template>
