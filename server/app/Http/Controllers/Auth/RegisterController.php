@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Libs\Utils;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\UserLevel;
@@ -68,16 +69,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $id = Utils::generateRamdomString(36);
         $lastUser = User::create([
+            'id' => $id,
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        $lastId = $lastUser->id;
 
         $userLevel = new UserLevel();
-        $userLevel->id = $lastId;
-        $userLevel->level = 1;
+        $userLevel->id = $id;
+        $userLevel->level = 0;
         $userLevel->times = "";
         $isSuccess = $userLevel->save();
         if (!$isSuccess) {
