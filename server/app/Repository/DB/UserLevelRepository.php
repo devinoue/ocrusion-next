@@ -15,28 +15,29 @@ use App\Domain\ValueObject\UserLevel\Times;
 class UserLevelRepository
 {
 
-  public function find(UserId $userId): Entities\UserLevel
-  {
-    $model = UserLevel::find($userId->value());
-    if ($model == null) {
+    public function find(UserId $userId): Entities\UserLevel
+    {
+        $model = UserLevel::find($userId->value());
+        if ($model == null) {
 //            throw new \Exception("IDが見つかりません");
-      $times = new Times(array());
-      $level = new Level(1);
-      $userLevel = new Entities\UserLevel($userId, $times, $level);
-      return $userLevel;
+            $times = new Times(array());
+            $level = new Level(1);
+            $userLevel = new Entities\UserLevel($userId, $times, $level);
+            return $userLevel;
+        }
+        $times = new Times(Times::splitTimes($model->times));
+        $times = new Times(array());
+        $level = new Level($model->level);
+        $userLevel = new Entities\UserLevel($userId, $times, $level);
+        return $userLevel;
     }
-    // $times = new Times(Times::splitTimes($model->times));
-    $times = new Times(array());
-    $level = new Level($model->level);
-    $userLevel = new Entities\UserLevel($userId, $times, $level);
-    return $userLevel;
-  }
 
-  public function save(Entities\UserLevel $user_level)
-  {
-    $model = UserLevel::find($user_level->getUserId());
-    $joinedTimes = join("/", $user_level->getTimes());
-    $model->times = $joinedTimes;
-    $model->save();
-  }
+    public function save(Entities\UserLevel $user_level)
+    {
+        $model = UserLevel::find($user_level->getUserId());
+        //throw \Illuminate\Validation\ValidationException::withMessages(["filed" => $user_level->getJoinedTimes()]);
+        $joinedTimes = $user_level->getJoinedTimes();//これgetTimesは修正済みなのでこれも修正する必要がある
+        $model->times = $joinedTimes;
+        $model->save();
+    }
 }
