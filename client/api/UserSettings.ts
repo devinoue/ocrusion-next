@@ -1,6 +1,6 @@
 import axios from 'axios'
-import {IUserSettings} from '~/types'
 import BaseApi from './BaseApi'
+import { IUserSettings } from '~/types'
 
 export class UserSettings extends BaseApi {
   constructor() {

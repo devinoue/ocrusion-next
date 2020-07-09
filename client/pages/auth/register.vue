@@ -14,7 +14,6 @@
 </template>
 <script lang="ts">
 import { ref } from '@vue/composition-api'
-import axios from 'axios'
 import { RegisterApi } from '~/api/RegisterApi'
 
 export default {
@@ -37,6 +36,9 @@ export default {
         const res = await registerApi.post(data)
         console.log(res)
       } catch (e) {
+        // status422なら、そのエラーはメアドかぶり
+        // SQLSTATE[23000]ならuser_levelに同じ名前の値があるので変えてほしい
+        console.log(e.message)
         console.log(e.reponse)
       }
 
