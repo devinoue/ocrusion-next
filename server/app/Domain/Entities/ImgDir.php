@@ -6,6 +6,7 @@ namespace App\Domain\Entities;
 use App\Domain\ValueObject\ImgDir\BookName;
 use App\Domain\ValueObject\ImgDir\BookOptions;
 use App\Domain\ValueObject\ImgDir\Description;
+use App\Domain\ValueObject\ImgDir\FileSize;
 use App\Domain\ValueObject\UserId;
 use App\Domain\ValueObject\ImgDir\OriginalZip;
 use App\Domain\ValueObject\BookId;
@@ -14,6 +15,7 @@ final class ImgDir
 {
     private UserId $userId;
     private OriginalZip $originalZip;
+    private FileSize $fileSize;
     private BookId $bookId;
     private int $state;
     private BookName $bookName;
@@ -30,6 +32,7 @@ final class ImgDir
     public function __construct(
         UserId $userId,
         OriginalZip $originalZip,
+        FileSize $fileSize,
         BookId $bookId,
         BookName $bookName,
         Description $description,
@@ -38,6 +41,7 @@ final class ImgDir
     {
         $this->userId = $userId;
         $this->originalZip = $originalZip;
+        $this->fileSize = $fileSize;
         $this->bookId = $bookId;
         $this->state = $this->OcrStatus["UNINITIALIZED"];
         $this->bookName = $bookName;
@@ -54,6 +58,11 @@ final class ImgDir
     public function getOriginalZip(): string
     {
         return $this->originalZip->value();
+    }
+
+    public function getFileSize(): int
+    {
+        return $this->fileSize->value();
     }
 
     public function getBookId(): string
@@ -74,11 +83,6 @@ final class ImgDir
     public function getBookOptions(): string
     {
         return $this->bookOptions->value();
-    }
-
-    public function getOpenType(): int
-    {
-        //
     }
 
     public function changeStateUninitialized()
