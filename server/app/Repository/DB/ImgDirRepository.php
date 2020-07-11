@@ -6,6 +6,7 @@ use App\Domain\ValueObject\ImgDir\BookName;
 use App\Domain\ValueObject\ImgDir\BookOptions;
 use App\Domain\ValueObject\ImgDir\Description;
 
+use App\Domain\ValueObject\ImgDir\FileSize;
 use App\ImageDir;
 
 use App\Domain\Entities;
@@ -35,12 +36,13 @@ class ImgDirRepository
         $model = ImageDir::find($tmpBookId->value());
         $userId = new UserId($model->user_id);
         $originalZip = new OriginalZip($model->original_zip);
+        $filSize = new FileSize($model->file_size);
         $bookId = new BookId($model->book_id);
         $bookName = new BookName($model->bookName ?? "");
         $description = new Description($model->description ?? "");
         $bookOptions = new BookOptions($model->bookOptions ?? "");
 
-        return new Entities\ImgDir($userId, $originalZip, $bookId, $bookName, $description, $bookOptions);
+        return new Entities\ImgDir($userId, $originalZip, $filSize, $bookId, $bookName, $description, $bookOptions);
     }
 
     public function save(Entities\ImgDir $imgDir)
@@ -48,6 +50,7 @@ class ImgDirRepository
         $model = new ImageDir();
         $model->user_id = $imgDir->getUserId();
         $model->original_zip = $imgDir->getOriginalZip();
+        $model->file_size = $imgDir->getFileSize();
         $model->book_id = $imgDir->getBookId();
         $model->book_name = $imgDir->getBookName();
         $model->description = $imgDir->getDescription();
