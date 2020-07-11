@@ -14,11 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+    $queue = DB::table('queues')->where('is_ocring', false)->get();
+    return $queue;
+    throw \Illuminate\Validation\ValidationException::withMessages(["filed" => $queue]);
     return view('welcome');
 });
 
 Route::get('/a', function () {
-    return ["message"=>"ffff"];
+    return ["message" => "ffff"];
 });
 
 Auth::routes();
