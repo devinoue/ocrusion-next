@@ -6,6 +6,7 @@ use App\Domain\Entities;
 
 use App\Repository\DB\QueueRepository;
 use App\Repository\DB\StateRepository;
+use App\Repository\DB\UserLevelRepository;
 
 /**
  * 待ち順番の管理をする
@@ -58,6 +59,11 @@ class StateService
             if ($exe_time_in_seconds > env("MAX_OCR_EXECUTE_SECONDS", 5 * 60)) {
                 // 5分を超えていたら不正終了したと判断してstatesテーブルから消し、払い戻す
                 $this->queueRepository->remove($queue);
+
+                $userLevelRepository = new UserLevelRepository();
+                $userLevel = $userLevelRepository->find($queue->getUserId());
+                $userLevel->addBonus(1);
+                $userLevelRepository->save($userLevel);
 
                 $saveQueue[] = $queue;
                 continue;

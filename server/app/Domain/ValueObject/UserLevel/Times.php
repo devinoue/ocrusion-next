@@ -6,7 +6,7 @@ use App\Domain\ValueObject\BaseValueObject;
 
 final class Times implements BaseValueObject
 {
-    public $value;
+    public array $value;
 
     public function __construct(array $primitive)
     {
@@ -20,6 +20,12 @@ final class Times implements BaseValueObject
         return $instance;
     }
 
+    public function setValue(int $time, int $value)
+    {
+
+        $this->value[$time] = $value;
+
+    }
     private function validate($primitive)
     {
         // validation

@@ -4,6 +4,7 @@
 namespace App\Repository\DB;
 
 
+use App\Domain\ValueObject\UserLevel\Bonus;
 use App\UserLevel;
 
 use App\Domain\Entities;
@@ -19,25 +20,27 @@ class UserLevelRepository
     {
         $model = UserLevel::find($userId->value());
         if ($model == null) {
-//            throw new \Exception("IDが見つかりません");
             $times = new Times(array());
             $level = new Level(1);
-            $userLevel = new Entities\UserLevel($userId, $times, $level);
+            $bonus = new Bonus(0);
+            $userLevel = new Entities\UserLevel($userId, $times, $level, $bonus);
             return $userLevel;
         }
         $times = new Times(Times::splitTimes($model->times));
-        $times = new Times(array());
         $level = new Level($model->level);
-        $userLevel = new Entities\UserLevel($userId, $times, $level);
+        $bonus = new Bonus($model->bonus);
+        $userLevel = new Entities\UserLevel($userId, $times, $level, $bonus);
         return $userLevel;
     }
 
-    public function save(Entities\UserLevel $user_level)
+    public function save(Entities\UserLevel $userLevel)
     {
-        $model = UserLevel::find($user_level->getUserId());
-        //throw \Illuminate\Validation\ValidationException::withMessages(["filed" => $user_level->getJoinedTimes()]);
-        $joinedTimes = $user_level->getJoinedTimes();//これgetTimesは修正済みなのでこれも修正する必要がある
+        $model = UserLevel::find($userLevel->getUserId());
+
+        $joinedTimes = $userLevel->getJoinedTimes();//これgetTimesは修正済みなのでこれも修正する必要がある
+
         $model->times = $joinedTimes;
+        $model->bonus = $userLevel->getBonus();
         $model->save();
     }
 }

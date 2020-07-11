@@ -81,6 +81,7 @@ class RegisterController extends Controller
         $userLevel->id = $id;
         $userLevel->level = 0;
         $userLevel->times = "";
+        $userLevel->bonus = 0;
         $isSuccess = $userLevel->save();
         if (!$isSuccess) {
             throw new \Exception("ユーザーレベルの追加に失敗しました");

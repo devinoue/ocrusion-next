@@ -32,8 +32,7 @@ final class OcrUseCase
 
         $error = $stateService->getError();
         if (count($error)) {
-            // 払い戻し
-            // ErrorLogRepository::save($error, 0, $stateService->getBookId());
+            return ["error" => $error];
         }
 
         $queue = $stateService->initializeUnOcrQueue();

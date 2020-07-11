@@ -3,6 +3,7 @@
 namespace App\Domain\Entities;
 
 use App\Domain\ValueObject\UserId;
+use App\Domain\ValueObject\UserLevel\Bonus;
 use App\Domain\ValueObject\UserLevel\Level;
 use App\Domain\ValueObject\UserLevel\Times;
 
@@ -13,15 +14,16 @@ final class UserLevel
     private $level;
     private $remainingTime;
     private $limitSize;
+    private $bonus;
 
     private $SECONDS_IN_A_DAY = 24 * 60 * 60;
 
-    public function __construct(UserId $userId, Times $times, Level $level)
+    public function __construct(UserId $userId, Times $times, Level $level, Bonus $bonus)
     {
         $this->userId = $userId;
         $this->level = $level;
         $this->times = $times;
-
+        $this->bonus = $bonus;
         $this->limitSize = $this->getLimitSize();
     }
 
@@ -43,6 +45,11 @@ final class UserLevel
     public function getLevel(): int
     {
         return $this->level->value();
+    }
+
+    public function getBonus(): int
+    {
+        return $this->bonus->value();
     }
 
     public function getRemainingTime(): string
@@ -85,16 +92,38 @@ final class UserLevel
     {
         $now = time();
         $this->times->value[$now] = $fileSize;
+        $this->times->setValue($now, $fileSize);
+
     }
 
+    public function substractBonus($value)
+    {
+        $this->bonus = new Bonus($this->bonus->value() - $value);
+    }
 
-    public function checkLimit(): bool
+    public function addBonus($value)
+    {
+        $this->bonus = new Bonus($this->bonus->value() + $value);
+    }
+
+    public function checkOut()
+    {
+        if ($this->bonus->value() > 0) {
+            $this->substractBonus(1);
+        }
+    }
+
+    public function isOverLimit(): bool
     {
         $now = time();
         $SECONDS_IN_A_DAY = $this->SECONDS_IN_A_DAY;
 
+        if ($this->bonus->value() > 0) {
+            return false;
+        }
+
         if (!isset($this->times->value[0])) {
-            return true;
+            return false;
         }
         // 24時間より古いデータはすべて除去する
         $this->updateTimes();
@@ -110,11 +139,11 @@ final class UserLevel
         if ($isOverTheLimit) {
             // 回復までの残り時間
             $this->remainingTime = $oldestTime - ($now - $SECONDS_IN_A_DAY);
-            return false;
+            return true;
         }
 
         $this->remainingTime = 0;
-        return true;
+        return false;
     }
 
     private function updateTimes()
@@ -124,7 +153,7 @@ final class UserLevel
         $tmpTimesArray = [];
         foreach ($this->times->value as $key => $value) {
             if ($key > ($now - $SECONDS_IN_A_DAY)) {
-                $tmpTimesArray[$key] = value;
+                $tmpTimesArray[$key] = $value;
             }
         }
         $this->times->setTimes($tmpTimesArray);

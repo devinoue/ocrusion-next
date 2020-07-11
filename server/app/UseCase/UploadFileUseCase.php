@@ -40,7 +40,7 @@ class UploadFileUseCase
 
         // ユーザーの24時間以内のアップロード数をチェック
         $userLevel = $userLevelRepository->find(new UserId($request->user_id));
-        if (!$userLevel->checkLimit()) {
+        if ($userLevel->isOverLimit()) {
             return ['error' => '24時間のサイズ制限を越えました。', 'remaining_time' => $userLevel->displayRemainingTime()];
         }
 
@@ -89,7 +89,9 @@ class UploadFileUseCase
         $imgDirRepository->save($imgDir);
         $queueRepository->save(new Queue($userId, $bookId));
 
+        $userLevel->checkOut();
         $userLevel->addNewBook($fileSize->value());
+
         $userLevelRepository->save($userLevel);
 
 
