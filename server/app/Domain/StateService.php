@@ -55,16 +55,16 @@ class StateService
     public function isMaxExecuting(): bool
     {
         $queues = $this->queueRepository->getExecQueue();
-        if (!count($queues)) return false;
+        if (!$queues) return false;
 
         $saveQueue = [];
         foreach ($queues as $queue) {
             $exe_time_in_seconds = time() - strtotime($queue->getUpdatedAt());
             if ($exe_time_in_seconds > env("MAX_OCR_EXECUTE_SECONDS", 5 * 60)) {
                 // 5分を超えていたら不正終了したと判断してstatesテーブルから消し、払い戻す
-                QueueRepository::delete($queue);
+                $this->queueRepository->remove($queue);
 
-                $errorQueue[] = $queue;
+                $saveQueue[] = $queue;
                 continue;
             }
             array_push($saveQueue, $queue);
@@ -96,6 +96,6 @@ class StateService
 
     public function clear()
     {
-        $this->queueRepository->delete($this->bookId);
+        $this->queueRepository->remove($this->queue);
     }
 }

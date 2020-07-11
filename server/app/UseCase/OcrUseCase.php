@@ -25,7 +25,6 @@ final class OcrUseCase
     {
         $imgDirRepository = new ImgDirRepository();
         $ocrTextRepository = new OcrTextRepository();
-        $queueRepository = new QueueRepository();
         $stateService = new StateService();
         $cloudVision = new CloudVision();
 

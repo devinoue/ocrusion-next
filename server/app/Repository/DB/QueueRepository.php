@@ -39,15 +39,15 @@ class QueueRepository
     public function getExecQueue()
     {
 
-        $execQueue = DB::table('Queue')->where('is_exec', true)->get();
+        $execQueue = DB::table('queues')->where('is_ocring', true)->get();
         if (count($execQueue) == 0) return null;
 
         $queues = [];
         foreach ($execQueue as $tmpQueue) {
             $queue = new Entities\Queue(
-                new UserId($tmpQueue['user_id']),
-                new BookId($tmpQueue['book_id']),
-                $tmpQueue['updated_at']
+                new UserId($tmpQueue->user_id),
+                new BookId($tmpQueue->book_id),
+                $tmpQueue->updated_at
             );
             array_push($queues, $queue);
         }
@@ -63,18 +63,21 @@ class QueueRepository
         if (!count($tmpQueue)) return null;
 
         $this->queue = new Entities\Queue(
-            new UserId($tmpQueue['user_id']),
-            new BookId($tmpQueue['book_id']),
-            $tmpQueue['updated_at']
+            new UserId($tmpQueue[0]->user_id),
+            new BookId($tmpQueue[0]->book_id),
+            $tmpQueue[0]->updated_at
         );
         return $this->queue;
     }
 
     public function save(Entities\Queue $queue)
     {
-        $model = new Queue;
+        $model = Queue::find($queue->getBookId());
+        if (!$model) {
+            $model = new Queue;
+            $model->book_id = $queue->getBookId();
+        }
         $model->user_id = $queue->getUserId();
-        $model->book_id = $queue->getBookId();
         $model->is_ocring = $queue->getIsOcring();
         $model->save();
     }
