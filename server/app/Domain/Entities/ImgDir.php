@@ -47,6 +47,7 @@ final class ImgDir
         $this->bookName = $bookName;
         $this->description = $description;
         $this->bookOptions = $bookOptions;
+        $this->state = $this->OcrStatus['UNINITIALIZED'];
 
     }
 
@@ -83,6 +84,11 @@ final class ImgDir
     public function getBookOptions(): string
     {
         return $this->bookOptions->value();
+    }
+
+    public function getState(): int
+    {
+        return $this->state;
     }
 
     public function changeStateUninitialized()

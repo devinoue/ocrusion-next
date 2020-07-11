@@ -55,8 +55,7 @@ class ImgDirRepository
         $model->book_name = $imgDir->getBookName();
         $model->description = $imgDir->getDescription();
         $model->book_options = $imgDir->getBookOptions();
-
-        $model->state = 0;
+        $model->state = $imgDir->getState();
         $model->save();
     }
 
