@@ -31,7 +31,9 @@ class StateRepository
         $model->book_id = $state->getBookId();
         $model->save();
     }
-    public function delete(){
+
+    public function delete()
+    {
         $model = State::first();
         $model->delete();
     }

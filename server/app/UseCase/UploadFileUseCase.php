@@ -2,6 +2,7 @@
 
 namespace App\UseCase;
 
+use App\Domain\ValueObject\ImgDir\FileSize;
 use Illuminate\Http\Request;
 
 use Validator;
@@ -75,19 +76,20 @@ class UploadFileUseCase
         }
 
         // フアイルサイズ
-        $fileSize = $image_validation->getFileSize();
+        $fileSize = new FileSize($image_validation->getFileSize());
 
         $originalZip = new OriginalZip($request->file('upfile')->getClientOriginalName());
+
         $userId = new UserId($request->user_id);
         $bookName = new BookName($request->bookName ?? "");
         $description = new Description($request->description ?? "");
         $bookOptions = new BookOptions($request->bookOptions ?? "");
 
-        $imgDir = new ImgDir($userId, $originalZip, $bookId, $bookName, $description, $bookOptions);
+        $imgDir = new ImgDir($userId, $originalZip, $fileSize, $bookId, $bookName, $description, $bookOptions);
         $imgDirRepository->save($imgDir);
         $queueRepository->save(new Queue($userId, $bookId));
 
-        $userLevel->addNewBook($fileSize);
+        $userLevel->addNewBook($fileSize->value());
         $userLevelRepository->save($userLevel);
 
 

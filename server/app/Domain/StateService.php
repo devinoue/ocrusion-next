@@ -4,8 +4,6 @@ namespace App\Domain;
 
 use App\Domain\Entities;
 
-use App\Domain\ValueObject\BookId;
-use App\Domain\ValueObject\UserId;
 use App\Repository\DB\QueueRepository;
 use App\Repository\DB\StateRepository;
 
@@ -15,13 +13,14 @@ use App\Repository\DB\StateRepository;
  */
 class StateService
 {
-    private BookId $bookId;
-    private UserId $userId;
     private string $executingError;
     private string $createdAt;
     private Entities\Queue $queue;
     private QueueRepository $queueRepository;
     private StateRepository $stateRepository;
+
+    private array $errorQueue;
+    private int $maxConcurrentConnection = 10;
 
     public function __construct()
     {
@@ -29,65 +28,69 @@ class StateService
         $this->stateRepository = new StateRepository();
         $this->executingError = "";
         $this->createdAt = "";
+        $this->errorQueue = [];
     }
 
-    public function getBookId():string
+    public function getBookId(): string
     {
         return $this->queue->getBookId();
     }
-    public function getUserId():int
+
+    public function getUserId(): int
     {
         return $this->queue->getUserId();
     }
-    public function getError():string
+
+    public function getError(): array
     {
-        return $this->executingError;
+        return $this->errorQueue;
     }
 
 
-    public function isExecuting():bool
+    public function isMaxExecuting(): bool
     {
-        try {
-            $this->queue = $this->queueRepository->first();
-            $this->bookId = new BookId($this->queue->getBookId());
-            $this->userId = new UserId($this->queue->getUserId());
-        } catch (\Exception $e) {
-            return false;
-        }
-        try {
-            $state = $this->stateRepository->first();
-            $this->createdAt = $state->getCreatedAt();
-        } catch (\Exception $e) {
-            return false;
+        $queues = $this->queueRepository->getExecQueue();
+        if (!$queues) return false;
+
+        $saveQueue = [];
+        foreach ($queues as $queue) {
+            $exe_time_in_seconds = time() - strtotime($queue->getUpdatedAt());
+            if ($exe_time_in_seconds > env("MAX_OCR_EXECUTE_SECONDS", 5 * 60)) {
+                // 5分を超えていたら不正終了したと判断してstatesテーブルから消し、払い戻す
+                $this->queueRepository->remove($queue);
+
+                $saveQueue[] = $queue;
+                continue;
+            }
+            array_push($saveQueue, $queue);
         }
 
-        $exe_time_in_seconds = time() - strtotime($this->createdAt);
 
-        if ($exe_time_in_seconds > env("MAX_OCR_EXECUTE_SECONDS", 5*60)) {
-            // 5分を超えていたら不正終了したと判断してstatesテーブルから消す。
-            $this->stateRepository->delete();
-            $this->isRunningError = "不正入力があります";
-            return false;
-        }
+        if (count($saveQueue) >= $this->maxConcurrentConnection) return false;
+
         return true;
     }
 
     public function lock()
     {
+        $this->queue->changeStatusOcring();
+        $this->queueRepository->save($this->queue);
+    }
 
-        $state = new Entities\State($this->userId, $this->bookId, $this->createdAt);
-        $this->stateRepository->save($state);
+    public function initializeUnOcrQueue()
+    {
+        $queue = $this->queueRepository->getUnOcredQueue();
+        if (!$queue) return null;
 
+        $this->queue = $queue;
+        $this->lock();
+
+
+        return $this->queue;
     }
 
     public function clear()
     {
-        $this->queueRepository->delete($this->bookId);
-        $this->stateRepository->delete();
-    }
-
-    public function exceptionUnlock()
-    {
-        $this->stateRepository->delete();
+        $this->queueRepository->remove($this->queue);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\UseCase;
 
-use Exception;
 use App\Repository\Api\CloudVision;
 
 use App\Domain\ValueObject\BookId;
@@ -27,27 +26,28 @@ final class OcrUseCase
         $stateService = new StateService();
         $cloudVision = new CloudVision();
 
-        if ($stateService->isExecuting()) {
-            return;
+        if ($stateService->isMaxExecuting()) {
+            return null;
         }
 
         $error = $stateService->getError();
-        if ($error) {
-            ErrorLogRepository::save($error, 0, $stateService->getBookId());
+        if (count($error)) {
+            // 払い戻し
+            // ErrorLogRepository::save($error, 0, $stateService->getBookId());
         }
 
+        $queue = $stateService->initializeUnOcrQueue();
+        if (!$queue) return null;
 
-        $bookId = new BookId($stateService->getBookId());
-        $userId = new UserId($stateService->getUserId());
-
-        $stateService->lock();
+        $bookId = new BookId($queue->getBookId());
+        $userId = new UserId($queue->getUserId());
 
 
         try {
             $ocr_texts = $cloudVision->read($userId, $bookId);
             $ocrTextRepository->saveAll($ocr_texts);
 
-            $stateService->clear($bookId);
+            $stateService->clear();
 
             $imgDir = $imgDirRepository->find($bookId);
             $imgDir->changeStateDone();
@@ -56,8 +56,6 @@ final class OcrUseCase
             return ["message" => "success"];
         } catch (\Exception $e) {
             ErrorLogRepository::save($e->getMessage(), $userId->value(), $bookId->value());
-
-            $stateService->exceptionUnlock();
 
             $imgDir = $imgDirRepository->find($bookId);
             $imgDir->changeStateException();

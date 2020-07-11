@@ -16,8 +16,9 @@ class CreateImageDirsTable extends Migration
         Schema::create('image_dirs', function (Blueprint $table) {
             $table->string('book_id')->primary();
             $table->string('user_id');
-            $table->integer('category_id')->unsigned()->default(0);;
+            $table->integer('category_id')->unsigned()->default(0);
             $table->string('original_zip');
+            $table->integer('file_size')->unsigned()->default(0);
             $table->string('book_name')->default("");
             $table->string('description')->default("");
             $table->string('book_options')->default("");
