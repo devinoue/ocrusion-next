@@ -2,8 +2,6 @@
 
 namespace App\UseCase;
 
-use App\Repository\DB\QueueRepository;
-use Exception;
 use App\Repository\Api\CloudVision;
 
 use App\Domain\ValueObject\BookId;

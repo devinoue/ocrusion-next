@@ -62,7 +62,8 @@ class ImgDirRepository
     public function updateState(Entities\ImgDir $img_dir)
     {
         $model = ImageDir::find($img_dir->getBookId());
-        $model->state = 0;
+        if (!$model) throw \Illuminate\Validation\ValidationException::withMessages(["message" => "no updatedState"]);
+        $model->state = 1;
         $model->save();
     }
 

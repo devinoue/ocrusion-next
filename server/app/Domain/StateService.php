@@ -4,11 +4,8 @@ namespace App\Domain;
 
 use App\Domain\Entities;
 
-use App\Domain\ValueObject\BookId;
-use App\Domain\ValueObject\UserId;
 use App\Repository\DB\QueueRepository;
 use App\Repository\DB\StateRepository;
-use App\Repository\DB\UserLevelRepository;
 
 /**
  * 待ち順番の管理をする
@@ -16,8 +13,6 @@ use App\Repository\DB\UserLevelRepository;
  */
 class StateService
 {
-    private BookId $bookId;
-    private UserId $userId;
     private string $executingError;
     private string $createdAt;
     private Entities\Queue $queue;
