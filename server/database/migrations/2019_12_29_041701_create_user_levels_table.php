@@ -16,7 +16,8 @@ class CreateUserLevelsTable extends Migration
         Schema::create('user_levels', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->integer('level')->unsigned();
-            $table->string('times',10000);
+            $table->string('times', 10000);
+            $table->integer('bonus')->default(0);
             $table->timestamps();
         });
     }
