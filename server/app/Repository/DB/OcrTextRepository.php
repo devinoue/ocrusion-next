@@ -9,8 +9,9 @@ use App\Domain\Entities;
 
 use App\Domain\ValueObject\UserId;
 use App\Domain\ValueObject\BookId;
-use App\Domain\ValueObject\ImgPath;
-use App\Domain\ValueObject\TextData;
+use App\Domain\ValueObject\OcrText\ImgPath;
+use App\Domain\ValueObject\OcrText\TextData;
+
 
 class OcrTextRepository
 {
@@ -23,12 +24,17 @@ class OcrTextRepository
         if ($model == null) {
             throw new Exception("No OcrText");
         }
-        return new Entities\OcrText(new UserId($model->user_id), new BookId($model->book_id));
+        return new Entities\OcrText(
+            new BookId($model->book_id),
+            new UserId($model->user_id),
+            new ImgPath($model->img_path),
+            new TextData($model->text_data)
+        );
     }
 
     public function find(BookId $book_id): Entities\OcrText
     {
-        $model= OcrText::find($book_id->get());
+        $model = OcrText::find($book_id->get());
 
         return new Entities\OcrText(
             new BookId($model->book_id),
@@ -61,5 +67,10 @@ class OcrTextRepository
 
         $model->text_data = $ocr_text->getTextData();
         $model->save();
+    }
+
+    public function deleteByBookIds(array $bookIds)
+    {
+        OcrText::whereIn("book_id", $bookIds)->delete();
     }
 }

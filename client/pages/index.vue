@@ -1,27 +1,16 @@
 <template>
   <div class="container">
     <div>
-      <h1 class="title">
-        ocrusion
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+      <button @click="onActionClicked()">消す</button>
+      <table>
+        <tr v-for="book in list2" :key="book.book_id">
+          <td>
+            <input v-model="bookIds" type="checkbox" :value="book.book_id" />
+          </td>
+          <td>{{ book.book_id }}</td>
+          <td>{{ book.book_name }}</td>
+        </tr>
+      </table>
       {{ list2 }}
     </div>
   </div>
@@ -35,11 +24,23 @@ export default {
   setup() {
     const a = ref(process.env.API_KEY)
     const list2 = ref<any>({})
-
+    const bookIds = ref([])
+    const onActionClicked = async (bookId: string) => {
+      try {
+        const params = { bookIds: JSON.stringify(bookIds) }
+        const res = await axios.post(`http://localhost:8080/api/book`, params)
+        console.log(res.data)
+      } catch (e) {
+        console.log(e)
+        console.log(e.response)
+      }
+    }
     onMounted(async () => {
       try {
-        const res = await axios.get('http://localhost:8080/api/book')
-        list2.value = res ?? {}
+        const res = await axios.get(
+          'http://localhost:8080/api/user/3OfY3rPywDtU749NjsuynhiyOS9mjbRZPw4i'
+        )
+        list2.value = res.data.data ?? {}
       } catch (e) {
         console.log(e)
         console.log(e.response)
@@ -47,7 +48,9 @@ export default {
     })
 
     return {
+      onActionClicked,
       list2,
+      bookIds,
     }
   },
 }
