@@ -12,7 +12,7 @@ export default {
     const batch = async () => {
       const url = `/api/book/delete/k1V4qW8r4k8Ik8p5`
       const params = {
-        imgPaths: ['0002.jpg', '0001.jpg'],
+        imgPaths: ['000d2.jpg', '0001.jpg'],
       }
       try {
         const baseApi = axios.create({ baseURL: 'http://localhost:8080' })
