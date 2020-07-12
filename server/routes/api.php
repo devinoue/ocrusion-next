@@ -24,6 +24,7 @@ Route::get('/batch', 'BatchController');
 // 本一覧
 Route::get('/user/{userId}', 'BookController@list');
 Route::get('/book/{id}', 'BookController@read');
+Route::post('/book/delete/{bookId}', 'OcrTextController@delete');
 Route::post('/book/{bookId}', 'OcrTextController@edit');
 Route::post('/book', 'BookController@delete');
 

@@ -79,7 +79,10 @@ class OcrTextRepository
         $update = ["text_data" => $textData];
         OcrText::where('book_id', $bookId)->where('img_path', $imgPath)->update($update);
     }
-
+    public function deleteByImgPath($bookId, $imgPath)
+    {
+        OcrText::where('book_id', $bookId)->where('img_path', $imgPath)->delete();
+    }
     public function deleteByBookIds(array $bookIds)
     {
         OcrText::whereIn("book_id", $bookIds)->delete();
