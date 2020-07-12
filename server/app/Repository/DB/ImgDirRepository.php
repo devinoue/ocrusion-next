@@ -74,6 +74,10 @@ class ImgDirRepository
         return $imageDirs;
     }
 
+    public function listBooksByState(int $state = 0)
+    {
+        return ImageDir::where("state", $state)->get();
+    }
 
     public function fetchBook(BookId $bookId)
     {
