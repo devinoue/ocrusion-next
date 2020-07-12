@@ -26,6 +26,8 @@ Route::get('/user/{userId}', 'BookController@list');
 Route::get('/book/{id}', 'BookController@read');
 Route::post('/book', 'BookController@delete');
 
+// ディレクトリのチェック
+Route::get('/check', 'DeleteExpiredImgDirController');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
