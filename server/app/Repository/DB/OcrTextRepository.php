@@ -3,6 +3,7 @@
 
 namespace App\Repository\DB;
 
+use App\ImageDir;
 use App\OcrText;
 
 use App\Domain\Entities;
@@ -44,6 +45,18 @@ class OcrTextRepository
         );
     }
 
+    public function fetchBook(BookId $bookId)
+    {
+        $imageDirs = ImageDir::find($bookId->value());
+        $ocrTexts = OcrText::where('book_id', $bookId->value())->orderBy('img_path')->get();
+        if ($ocrTexts === null) {
+            throw new Exception("ディリクトリがありません");
+        }
+
+        return compact('ocrTexts', 'imageDirs');
+    }
+
+
     public function save(Entities\OcrText $ocr_text)
     {
         $model = new OcrText;
@@ -61,12 +74,10 @@ class OcrTextRepository
         }
     }
 
-    public function updateTextData(Entities\OcrText $ocr_text)
+    public function update($bookId, $imgPath, $textData)
     {
-        $model = OcrText::find(new BookId($ocr_text->getBookId()));
-
-        $model->text_data = $ocr_text->getTextData();
-        $model->save();
+        $update = ["text_data" => $textData];
+        OcrText::where('book_id', $bookId)->where('img_path', $imgPath)->update($update);
     }
 
     public function deleteByBookIds(array $bookIds)

@@ -79,16 +79,6 @@ class ImgDirRepository
         return ImageDir::where("state", $state)->get();
     }
 
-    public function fetchBook(BookId $bookId)
-    {
-        $imageDirs = ImageDir::find($bookId->value());
-        $ocrTexts = OcrText::where('book_id', $bookId->value())->orderBy('img_path')->get();
-        if ($ocrTexts === null) {
-            throw new Exception("ディリクトリがありません");
-        }
-
-        return compact('ocrTexts', 'imageDirs');
-    }
 
     public function deleteByBookIds(array $bookIds)
     {
