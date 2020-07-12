@@ -22,9 +22,10 @@ Route::post('/files/{user_id}', 'UploadFileController');
 Route::get('/batch', 'BatchController');
 
 // 本一覧
-Route::get('/book', 'BookController@list');
+Route::get('/user/{userId}', 'BookController@list');
 Route::get('/book/{id}', 'BookController@read');
-Route::delete('/book/{id}', 'BookController@delete');
+Route::post('/book', 'BookController@delete');
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

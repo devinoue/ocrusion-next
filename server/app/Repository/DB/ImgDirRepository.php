@@ -86,15 +86,8 @@ class ImgDirRepository
         return compact('ocrTexts', 'imageDirs');
     }
 
-    public function deleteBook(BookId $bookId)
+    public function deleteByBookIds(array $bookIds)
     {
-        // image_dirテーブル
-        $imgDirs = ImageDir::find($bookId->value());
-        $imgDirs->delete();
-
-        // ocr_textテーブル
-        $ocr_texts = OcrText::where('book_id', $bookId->value())->delete();
-
-        return ["message" => "success"];
+        ImageDir::whereIn("book_id", $bookIds)->delete();
     }
 }
