@@ -7,7 +7,7 @@
 import { ref } from 'nuxt-composition-api'
 import axios from 'axios'
 export default {
-  name: '',
+  name: 'OcrD',
   setup() {
     const batch = async () => {
       const url = `/api/book/delete/k1V4qW8r4k8Ik8p5`
