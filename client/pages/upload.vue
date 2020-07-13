@@ -53,7 +53,7 @@ import axios from 'axios'
 export default {
   name: 'Upload',
   setup() {
-    const userId = ref('oJLIZDeFYFReuvmAanSj6V4zgROqBThkrNS8')
+    const userId = ref('3OfY3rPywDtU749NjsuynhiyOS9mjbRZPw4i')
     const file = ref('')
     const message = ref('')
     const dragging = ref(false)
