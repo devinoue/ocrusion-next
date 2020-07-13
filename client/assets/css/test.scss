@@ -1,0 +1,67 @@
+html, body {
+    font-family: "Noto Sans JP",sans-serif;
+    color: #053657;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+
+}
+*,
+*::before,
+*::after {
+box-sizing: border-box;
+margin: 0;
+}
+.menu-link {
+    transition: all .3s;
+    font-weight: 600;
+    font-size: .875rem;
+    letter-spacing: 0.1em;
+    line-height: 1.55;
+
+    &:hover {
+        color:#9da4b3;
+    }
+}
+.button {
+    border-width: 0;
+    border-style: solid;
+    border-color: #e2e8f0;
+    margin: 0;
+    margin-left: 15px;
+    width: inherit;
+    text-align: center;
+    background-color: #053657;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 62.5rem;
+    position: relative;
+    transition: all .3s;
+    font-weight: 700;
+    line-height: 1.5;
+    overflow: hidden;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    padding: 10px 30px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+    &:hover{
+        opacity: 1;
+        box-shadow: 0 0 0 rgba(0,0,0,0);
+    }
+
+    &::before{
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0%;
+        height: 100%;
+        background-color: #065C96;
+        top: 0;
+        left: 0;
+        transition: all .22s ease;
+
+    }
+
+}
