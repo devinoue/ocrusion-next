@@ -44,10 +44,11 @@ margin: 0;
     overflow: hidden;
     font-size: 1rem;
     letter-spacing: 0.1em;
-    padding: 6px 30px;
+    padding: 10px 30px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.2);
     &:hover{
         opacity: 1;
-        box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+        box-shadow: 0 0 0 rgba(0,0,0,0);
     }
 
     &::before{
