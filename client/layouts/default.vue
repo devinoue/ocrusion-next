@@ -1,6 +1,6 @@
 <template>
-  <div class="container mx-auto ">
-    <TheHeader />
+  <div class="container mx-auto">
+    <TheHeader :is-top="true" />
     <nuxt />
   </div>
 </template>
@@ -12,6 +12,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
