@@ -1,5 +1,10 @@
 <template>
   <div>
+    <AppLeading
+      :title="'UPLOAD'"
+      :sub-title="'アップロード'"
+      class="text-center"
+    />
     {{ message }}
     <span v-show="isSuccess">成功しました</span>
 
@@ -49,9 +54,11 @@
 <script>
 import { ref } from '@vue/composition-api'
 import axios from 'axios'
-
+import AppLeading from '~/components/App/AppLeading.vue'
 export default {
   name: 'Upload',
+  components: { AppLeading },
+  layout: 'member',
   setup() {
     const userId = ref('3OfY3rPywDtU749NjsuynhiyOS9mjbRZPw4i')
     const file = ref('')

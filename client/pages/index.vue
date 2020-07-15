@@ -11,7 +11,6 @@
           <td>{{ book.book_name }}</td>
         </tr>
       </table>
-      {{ list2 }}
     </div>
   </div>
 </template>
@@ -21,10 +20,8 @@ import { ref, onMounted } from '@vue/composition-api'
 import axios from 'axios'
 export default {
   name: 'Login',
-  layout:"default",
+  layout: 'default',
   setup() {
-    const a = ref(process.env.API_KEY)
-    const list2 = ref<any>({})
     const bookIds = ref([])
     const onActionClicked = async (bookId: string) => {
       try {
@@ -36,26 +33,14 @@ export default {
         console.log(e.response)
       }
     }
-    // onMounted(async () => {
-    //   try {
-    //     const res = await axios.get(
-    //       'http://localhost:8080/api/user/3OfY3rPywDtU749NjsuynhiyOS9mjbRZPw4i'
-    //     )
-    //     list2.value = res.data.data ?? {}
-    //   } catch (e) {
-    //     console.log(e)
-    //     console.log(e.response)
-    //   }
-    // })
 
     return {
       onActionClicked,
-      list2,
+
       bookIds,
     }
   },
 }
 </script>
 
-<style>
-</style>
+<style></style>
