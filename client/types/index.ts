@@ -1,4 +1,5 @@
-import {AxiosPromise} from 'axios'
+/* eslint-disable camelcase */
+import { AxiosPromise } from 'axios'
 
 export interface RootState {
   user: string | null | any

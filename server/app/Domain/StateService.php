@@ -4,6 +4,7 @@ namespace App\Domain;
 
 use App\Domain\Entities;
 
+use App\Domain\ValueObject\UserId;
 use App\Repository\DB\QueueRepository;
 use App\Repository\DB\StateRepository;
 use App\Repository\DB\UserLevelRepository;
@@ -61,7 +62,7 @@ class StateService
                 $this->queueRepository->remove($queue);
 
                 $userLevelRepository = new UserLevelRepository();
-                $userLevel = $userLevelRepository->find($queue->getUserId());
+                $userLevel = $userLevelRepository->find(new UserId($queue->getUserId()));
                 $userLevel->addBonus(1);
                 $userLevelRepository->save($userLevel);
 

@@ -13,14 +13,12 @@
 import axios from 'axios'
 import { ref, onMounted } from 'nuxt-composition-api'
 import BookList from '~/components/Book/BookList.vue'
-import AppLeading from '~/components/App/AppLeading.vue'
-import AppPagenation from '~/components/App/AppPagenation.vue'
 
 export default {
   name: 'Member',
   // middleware: 'auth',
   layout: 'member',
-  components: { BookList, AppLeading, AppPagenation },
+  components: { BookList },
   setup(_props: {}) {
     const bookList = ref([])
     const bookData = ref<any>({})

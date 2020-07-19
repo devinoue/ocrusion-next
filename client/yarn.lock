@@ -1591,6 +1591,12 @@
   version "0.2.28"
   resolved "https://registry.yarnpkg.com/@types/relateurl/-/relateurl-0.2.28.tgz#6bda7db8653fa62643f5ee69e9f69c11a392e3a6"
 
+"@types/sanitize-html@^1.23.3":
+  version "1.23.3"
+  resolved "https://registry.yarnpkg.com/@types/sanitize-html/-/sanitize-html-1.23.3.tgz#26527783aba3bf195ad8a3c3e51bd3713526fc0d"
+  dependencies:
+    htmlparser2 "^4.1.0"
+
 "@types/serve-static@*", "@types/serve-static@^1.13.4":
   version "1.13.4"
   resolved "https://registry.yarnpkg.com/@types/serve-static/-/serve-static-1.13.4.tgz#6662a93583e5a6cabca1b23592eb91e12fa80e7c"
@@ -1798,8 +1804,8 @@
     prettier "^1.18.2"
 
 "@vue/composition-api@^0.6.3":
-  version "0.6.5"
-  resolved "https://registry.yarnpkg.com/@vue/composition-api/-/composition-api-0.6.5.tgz#890b4ab3777ee95c6d633872db2bf53a45446d5b"
+  version "0.6.7"
+  resolved "https://registry.yarnpkg.com/@vue/composition-api/-/composition-api-0.6.7.tgz#4481b547cea65dc936432f7efcf1a39f9c69420c"
   dependencies:
     tslib "^2.0.0"
 
@@ -3758,7 +3764,7 @@ dom-event-types@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dom-event-types/-/dom-event-types-1.0.0.tgz#5830a0a29e1bf837fe50a70cd80a597232813cae"
 
-dom-serializer@0:
+dom-serializer@0, dom-serializer@^0.2.1:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/dom-serializer/-/dom-serializer-0.2.2.tgz#1afb81f533717175d478655debc5e332d9f9bb51"
   dependencies:
@@ -3789,6 +3795,12 @@ domhandler@^2.3.0:
   dependencies:
     domelementtype "1"
 
+domhandler@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-3.0.0.tgz#51cd13efca31da95bbb0c5bee3a48300e333b3e9"
+  dependencies:
+    domelementtype "^2.0.1"
+
 domutils@1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/domutils/-/domutils-1.5.1.tgz#dcd8488a26f563d61079e48c9f7b7e32373682cf"
@@ -3802,6 +3814,14 @@ domutils@^1.5.1, domutils@^1.7.0:
   dependencies:
     dom-serializer "0"
     domelementtype "1"
+
+domutils@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/domutils/-/domutils-2.1.0.tgz#7ade3201af43703fde154952e3a868eb4b635f16"
+  dependencies:
+    dom-serializer "^0.2.1"
+    domelementtype "^2.0.1"
+    domhandler "^3.0.0"
 
 dot-case@^3.0.3:
   version "3.0.3"
@@ -5156,6 +5176,15 @@ htmlparser2@^3.10.0, htmlparser2@^3.3.0:
     entities "^1.1.1"
     inherits "^2.0.1"
     readable-stream "^3.1.1"
+
+htmlparser2@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-4.1.0.tgz#9a4ef161f2e4625ebf7dfbe6c0a2f52d18a59e78"
+  dependencies:
+    domelementtype "^2.0.1"
+    domhandler "^3.0.0"
+    domutils "^2.0.0"
+    entities "^2.0.0"
 
 http-errors@1.7.2:
   version "1.7.2"
@@ -8919,6 +8948,15 @@ sane@^4.0.3:
     minimist "^1.1.1"
     walker "~1.0.5"
 
+sanitize-html@^1.27.1:
+  version "1.27.1"
+  resolved "https://registry.yarnpkg.com/sanitize-html/-/sanitize-html-1.27.1.tgz#ce147951aa3defba13448e2ca8a4e18d8f2e2cd7"
+  dependencies:
+    htmlparser2 "^4.1.0"
+    lodash "^4.17.15"
+    postcss "^7.0.27"
+    srcset "^2.0.1"
+
 sass-graph@2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/sass-graph/-/sass-graph-2.2.5.tgz#a981c87446b8319d96dce0671e487879bd24c2e8"
@@ -9273,6 +9311,10 @@ split-string@^3.0.1, split-string@^3.0.2:
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
+
+srcset@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/srcset/-/srcset-2.0.1.tgz#8f842d357487eb797f413d9c309de7a5149df5ac"
 
 sshpk@^1.7.0:
   version "1.16.1"

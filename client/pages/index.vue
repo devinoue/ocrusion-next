@@ -22,22 +22,13 @@ export default {
   name: 'Login',
   layout: 'default',
   setup() {
-    const bookIds = ref([])
-    const onActionClicked = async (bookId: string) => {
-      try {
-        const params = { bookIds: JSON.stringify(bookIds) }
-        const res = await axios.post(`http://localhost:8080/api/book`, params)
-        console.log(res.data)
-      } catch (e) {
-        console.log(e)
-        console.log(e.response)
-      }
-    }
+    const list2 = ref([])
+
+    const error = ref(null)
 
     return {
-      onActionClicked,
-
-      bookIds,
+      list2,
+      error,
     }
   },
 }
