@@ -21,17 +21,23 @@
             <input
               v-model="selectedBookIds"
               type="checkbox"
+              class="form-checkbox"
               :value="book.book_id"
             />
           </td>
           <td class="border-grey-light border p-3 font-semibold">
-            <nuxt-link :to="'/book/' + book.book_id">
+            <span v-show="book.state === 0">{{ book.book_name }}<br /></span>
+            <nuxt-link
+              v-show="book.state === 1"
+              :to="'/members/books/' + book.book_id"
+            >
               <span>{{ book.book_name }}<br /></span>
             </nuxt-link>
+
             <span>
               <AppTag
                 v-show="book.state === 0"
-                :text="'OCR未実施'"
+                :text="'OCR待機中...'"
                 class="bg-pink-600 text-white text-xs"
               />
               <AppTag

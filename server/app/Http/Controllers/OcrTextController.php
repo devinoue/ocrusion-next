@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class OcrTextController extends Controller
 {
-    public function edit(Request $request, $bookId)
+    public function edit(Request $request, string $bookId)
     {
         // 送信されてきたocr_textだけ更新する。送信されてきていないものは無視
         // book_idとimg_pathで同一性を確保
