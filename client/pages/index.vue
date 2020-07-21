@@ -1,6 +1,13 @@
 <template>
   <div class="container">
     <div>
+      <AppLoadingButton
+        initial-label="ダウンロード"
+        completed-label="成功しました"
+        :status="status"
+        @onClick="onClick()"
+      />
+      <button @click="onClick()">fff</button>
       <button @click="onActionClicked()">消す</button>
       <table>
         <tr v-for="book in list2" :key="book.book_id">
@@ -23,12 +30,20 @@ export default {
   layout: 'default',
   setup() {
     const list2 = ref([])
-
+    const status = ref('UNINITIALIZED')
     const error = ref(null)
+    const onClick = () => {
+      status.value = 'LOADING'
+      setTimeout(() => {
+        status.value = 'LOADED'
+      }, 3000)
+    }
 
     return {
       list2,
       error,
+      status,
+      onClick,
     }
   },
 }
