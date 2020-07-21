@@ -39,10 +39,10 @@ export interface ILoadingState {
   data: null | unknown
 }
 
-export enum RequestState {
-  uninitialized = 'uninitialized',
-  loading = 'loading',
-  loaded = 'loaded',
-  complete = 'complete',
-  failure = 'failure',
+export const RequestState = {
+  UNINITIALIZED: 'UNINITIALIZED',
+  LOADING: 'LOADING',
+  LOADED: 'LOADED',
+  COMPLETE: 'COMPLETE',
+  FAILURE: 'FAILURE',
 }
