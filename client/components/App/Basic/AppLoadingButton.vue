@@ -1,5 +1,9 @@
 <template>
-  <button class="shadow" :class="statusClass" @click="onClick()">
+  <button
+    class="transition duration-300 px-4 py-1 text-white font-light tracking-wider bg-gray-900 hover:shadow-xl rounded"
+    :class="statusClass"
+    @click.stop="onClick"
+  >
     <div :class="loadingClass"></div>
     {{ label }}
   </button>
@@ -13,8 +17,12 @@ import {
   ref,
 } from 'nuxt-composition-api'
 import { RequestState } from '~/types/index'
-
-type Props = { initialLabel: string; status: string; completedLabel: string }
+import useLoading, { request } from '~/composables/use-loading'
+type Props = {
+  initialLabel: string
+  completedLabel: string
+  isConfirm: boolean
+}
 export default defineComponent({
   name: '',
   props: {
@@ -28,16 +36,16 @@ export default defineComponent({
       required: false,
       default: 'Completed!',
     },
-
-    status: {
-      type: String,
-      required: true,
-      default: RequestState.UNINITIALIZED,
+    isConfirm: {
+      type: Boolean,
+      required: false,
+      default: true,
     },
   },
   setup(props: Props, { emit }: SetupContext) {
+    const { changeUninitialized } = useLoading()
     const loadingClass = computed(() => {
-      if (props.status === RequestState.LOADING) {
+      if (request.state === RequestState.LOADING) {
         return 'sbl-circ'
       }
     })
@@ -47,27 +55,40 @@ export default defineComponent({
 
     const label = ref(props.initialLabel)
     const statusClass = ref('initial')
-
+    if (!props.isConfirm) {
+      statusClass.value = 'loading'
+    }
     watch(
-      () => props.status,
+      () => props.isConfirm,
       () => {
-        if (props.status === RequestState.UNINITIALIZED) {
+        if (!props.isConfirm) {
+          statusClass.value = 'loading'
+        } else if (props.isConfirm) {
+          statusClass.value = 'initial'
+        }
+      }
+    )
+    watch(
+      () => request.state,
+      () => {
+        if (request.state === RequestState.UNINITIALIZED) {
           label.value = props.initialLabel
           statusClass.value = 'initial'
-        } else if (props.status === RequestState.LOADING) {
+        } else if (request.state === RequestState.LOADING) {
           label.value = 'Loading...'
           statusClass.value = 'loading'
-        } else if (props.status === RequestState.LOADED) {
+        } else if (request.state === RequestState.LOADED) {
           label.value = props.completedLabel
           setTimeout(() => {
             statusClass.value = 'loaded'
             label.value = props.initialLabel
+            changeUninitialized()
           }, 3000)
         }
       }
     )
 
-    return { label, loadingClass, statusClass, onClick }
+    return { label, loadingClass, statusClass, onClick, request }
   },
 })
 </script>
