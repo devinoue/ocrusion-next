@@ -1,67 +1,39 @@
 <template>
   <div>
-    <input v-model="name" class="shadow-outline" type="text" /><br />
-    <input v-model="email" class="shadow-outline" type="text" /><br />
-    <input v-model="password" class="shadow-outline" type="text" /><br />
-
-    <input
-      v-model="passwordConfirmation"
-      class="shadow-outline"
-      type="text"
-    /><br />
-    <button @click.stop="register()">押す</button>
+    <RegisterForm @onRegisterButtonPushed="onRegisterButtonPushed" />
   </div>
 </template>
 <script lang="ts">
-import { ref } from '@vue/composition-api'
+import { ref, SetupContext } from '@vue/composition-api'
+import useLoading from '~/composables/use-loading'
 import { RegisterApi } from '~/api/RegisterApi'
 
 export default {
-  name: '',
-  setup() {
-    const name = ref('aaa')
-    const email = ref('bb@ko.com')
-    const password = ref('hogehoge')
-    const passwordConfirmation = ref('hogehoge')
-
-    const register = async () => {
-      const data = {
-        name: name.value,
-        email: email.value,
-        password: password.value,
-        passwordConfirmation: passwordConfirmation.value,
-      }
+  name: 'Register',
+  setup(_props: {}, { root }: SetupContext) {
+    const { changeLoaded, changeLoading, changeFailure } = useLoading()
+    const onRegisterButtonPushed = async (param: any) => {
       const registerApi = new RegisterApi()
       try {
-        const res = await registerApi.post(data)
+        changeLoading()
+        const res = await registerApi.post(param)
         console.log(res)
+        changeLoaded()
+        root.$router.push('/members/dashboard')
       } catch (e) {
-        // status422なら、そのエラーはメアドかぶり
-        // SQLSTATE[23000]ならuser_levelに同じ名前の値があるので変えてほしい
+        if (e.message.includes(422)) {
+          alert(
+            '同じメールアドレスが使われていますので違うメールアドレスを使用してください'
+          )
+        }
         console.log(e.message)
         console.log(e.reponse)
+        changeFailure()
       }
-
-      // const res = await axios
-      //   .post('http://localhost:8000/api/register', data)
-      //   .catch((e) => {
-      //     console.log(e)
-      //   })
-      // console.log(res)
-      // Must verify email fist.
-      // if (res.data.status) {
-      //   console.log('ダメっぽい')
-      // } else {
-      //   console.log('できた！')
-      // }
     }
 
     return {
-      name,
-      email,
-      password,
-      passwordConfirmation,
-      register,
+      onRegisterButtonPushed,
     }
   },
 }
