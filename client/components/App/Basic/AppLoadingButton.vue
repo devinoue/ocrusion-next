@@ -1,6 +1,6 @@
 <template>
   <button
-    class="transition duration-300 px-4 py-1 text-white font-light tracking-wider bg-gray-900 hover:shadow-xl rounded"
+    class="transition duration-300 px-4 py-1 shadow-good text-white font-light tracking-wider bg-gray-900 hover:shadow-none rounded"
     :class="statusClass"
     @click.stop="onClick"
   >
@@ -21,6 +21,7 @@ import useLoading, { request } from '~/composables/use-loading'
 type Props = {
   initialLabel: string
   completedLabel: string
+  failureLabel: string
   isConfirm: boolean
 }
 export default defineComponent({
@@ -40,6 +41,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true,
+    },
+    failureLabel: {
+      type: String,
+      required: false,
+      default: 'Failure',
     },
   },
   setup(props: Props, { emit }: SetupContext) {
@@ -79,6 +85,13 @@ export default defineComponent({
           statusClass.value = 'loading'
         } else if (request.state === RequestState.LOADED) {
           label.value = props.completedLabel
+          setTimeout(() => {
+            statusClass.value = 'loaded'
+            label.value = props.initialLabel
+            changeUninitialized()
+          }, 3000)
+        } else if (request.state === RequestState.FAILURE) {
+          label.value = props.failureLabel
           setTimeout(() => {
             statusClass.value = 'loaded'
             label.value = props.initialLabel

@@ -1,56 +1,46 @@
 <template>
   <div>
-    メール <input v-model="email" class="shadow" type="text" />
-    <br />
-    <input v-model="password" type="text" class="shadow" />
-    <button type="text" class="shadow" @click="login()">押す</button>
-
-    <input v-model="remember" type="checkbox" name="remember" />記憶する
+    <LoginForm @onLoginButtonPushed="onLoginButtonPushed" />
   </div>
 </template>
 <script lang="ts">
-import { ref, SetupContext } from '@vue/composition-api'
+import { SetupContext } from '@vue/composition-api'
+
+import useLoading from '~/composables/use-loading'
 
 export default {
   name: 'Login',
   setup(_props: {}, { root }: SetupContext) {
-    const email = ref<string>('bb@ko.com')
-    const password = ref('hogehoge')
+    const { changeLoaded, changeLoading, changeFailure } = useLoading()
 
-    const user = ref({})
-    const remember = ref(false)
-
-    const login = async () => {
+    const onLoginButtonPushed = async (forms: any) => {
       const data = {
         grant_type: 'password',
         client_id: process.env.CLIENT_ID,
         client_secret: process.env.CLIENT_SECRET,
-        username: email.value,
-        password: password.value,
-        remember: remember.value,
+        username: forms.email,
+        password: forms.password,
+        remember: forms.remember,
       }
       try {
+        changeLoading()
         const res = await root.$store.dispatch('Auth/fetchUser', data)
-        // user.value = root.$store.getters['Auth/name'] as ReturnType<
-        //   typeof getters.name
-        // >
+
         root.$store.dispatch('Auth/saveToken', {
           token: res.data.access_token,
-          remember: remember.value,
+          remember: forms.remember,
         })
+        changeLoaded()
 
-        // Redirect home.
-        root.$router.push({ name: 'member' })
+        root.$router.push('/members/dashboard')
       } catch (e) {
+        changeFailure()
         console.log(e)
       }
     }
+
     return {
-      email,
-      password,
-      user,
-      login,
-      remember,
+      onLoginButtonPushed,
     }
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <section>
     <div
-      class="w-full mx-auto max-w-2xl m-4 p-10 p-8 text-gray-700 bg-white rounded shadow-xl"
+      class="w-full mx-auto max-w-2xl m-4 p-10 text-gray-700 bg-white rounded shadow-xl"
     >
       <p class="text-gray-800 font-medium">アップロードの詳細</p>
       <div class="">
