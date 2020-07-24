@@ -1,24 +1,22 @@
 <template>
-  <div class="container">
-    <div>
-      <AppLoadingButton
-        initial-label="ダウンロード"
-        completed-label="成功しました"
-        :status="status"
-        @onClick="onClick()"
-      />
-      <button @click="onClick()">fff</button>
-      <button @click="onActionClicked()">消す</button>
-      <table>
-        <tr v-for="book in list2" :key="book.book_id">
-          <td>
-            <input v-model="bookIds" type="checkbox" :value="book.book_id" />
-          </td>
-          <td>{{ book.book_id }}</td>
-          <td>{{ book.book_name }}</td>
-        </tr>
-      </table>
-    </div>
+  <div>
+    <AppLoadingButton
+      initial-label="ダウンロード"
+      completed-label="成功しました"
+      :status="status"
+      @onClick="onClick()"
+    />
+    <button @click="onClick()">fff</button>
+    <button @click="onActionClicked()">消す</button>
+    <table>
+      <tr v-for="book in list2" :key="book.book_id">
+        <td>
+          <input v-model="bookIds" type="checkbox" :value="book.book_id" />
+        </td>
+        <td>{{ book.book_id }}</td>
+        <td>{{ book.book_name }}</td>
+      </tr>
+    </table>
   </div>
 </template>
 

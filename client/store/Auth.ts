@@ -1,10 +1,9 @@
-import {ActionTree, MutationTree, GetterTree} from 'vuex'
+import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import axios from 'axios'
-import {RootState} from '../types'
-import {LoginApi} from "~/api/LoginApi";
 import Cookies from 'js-cookie'
-import {LogoutApi} from "~/api/Logout";
-
+import { RootState } from '../types'
+import { LoginApi } from '~/api/LoginApi'
+import { LogoutApi } from '~/api/Logout'
 
 export const state = (): RootState => ({
   token: null,
@@ -27,20 +26,19 @@ export const mutations: MutationTree<RootState> = {
 
 export const getters: GetterTree<RootState, RootState> = {
   user: (state: RootState) => state.user,
-  token: state => state.token,
-  check: state => state.user !== null
+  token: (state) => state.token,
+  check: (state) => state.user !== null,
 }
 
 // actions
 export const actions: ActionTree<RootState, RootState> = {
-  saveToken({commit, dispatch}, {token, remember}) {
+  saveToken({ commit, dispatch }, { token, remember }) {
     commit('SET_TOKEN', token)
 
-    Cookies.set('token', token, {expires: remember ? 365 : 0})
+    Cookies.set('token', token, { expires: remember ? 365 : 0 })
   },
 
-  fetchUser: async ({commit}: any, data: any) => {
-
+  fetchUser: async ({ commit }: any, data: any) => {
     try {
       const loginApi = new LoginApi()
       const res = await loginApi.post(data)
@@ -51,7 +49,7 @@ export const actions: ActionTree<RootState, RootState> = {
       throw e
     }
   },
-  async logout({commit}) {
+  async logout({ commit }) {
     try {
       const logoutApi = new LogoutApi()
       await logoutApi.post()
