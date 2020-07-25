@@ -46,3 +46,9 @@ export const RequestState = {
   COMPLETE: 'COMPLETE',
   FAILURE: 'FAILURE',
 }
+
+export interface IBookList {
+  book_id: string
+  state: number
+  book_name: string
+}
