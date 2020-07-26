@@ -159,7 +159,7 @@ export default {
 }
 
 .drop:hover {
-  border: 2px dashed #2e94c4;
+  border: 2px dashed #249e92;
 }
 
 .drop input {

@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { ref, onMounted } from '@vue/composition-api'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 export default {
   name: 'Login',
   layout: 'default',
@@ -30,11 +30,16 @@ export default {
     const list2 = ref([])
     const status = ref('UNINITIALIZED')
     const error = ref(null)
-    const onClick = () => {
-      status.value = 'LOADING'
-      setTimeout(() => {
-        status.value = 'LOADED'
-      }, 3000)
+    const onClick = async () => {
+      const res: void | AxiosResponse = await axios
+        .get(
+          'http://localhost:8080/api/capacities/3OfY3rPywDtU749NjsuynhiyOS9mjbRZPw4i'
+        )
+        .catch((e) => {
+          console.log(e)
+          console.log(e.response)
+        })
+      console.log(res.data.message)
     }
 
     return {
