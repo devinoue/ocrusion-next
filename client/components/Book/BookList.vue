@@ -1,6 +1,9 @@
 <template>
   <div>
-    <BookListActionButton @onActionButtonClicked="onActionButtonClicked" />
+    <BookListActionButton
+      class="mb-4"
+      @onActionButtonClicked="onActionButtonClicked"
+    />
 
     <table
       class="border-collapse table-auto w-full bg-white table-striped overflow-hidden rounded shadow-lg"
@@ -23,17 +26,17 @@
           </th>
 
           <th
-            class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider"
+            class="bg-gray-100 sticky top-0 border-b border-gray-200 py-2 text-gray-600 font-bold tracking-wider"
           >
             名前
           </th>
           <th
-            class="w-1/2 bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider"
+            class="w-1/2 bg-gray-100 sticky top-0 border-b border-gray-200 py-2 text-gray-600 font-bold tracking-wider"
           >
             説明
           </th>
           <th
-            class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider"
+            class="bg-gray-100 sticky top-0 border-b border-gray-200 py-2 text-gray-600 font-bold tracking-wider"
           >
             状態
           </th>
@@ -58,9 +61,7 @@
             </label>
           </td>
           <td class="border-dashed border-t border-gray-200 p-3 font-semibold">
-            <span v-show="book.state === 0" class="px-6"
-              >{{ book.book_name }}<br
-            /></span>
+            <span v-show="book.state === 0">{{ book.book_name }}<br /></span>
             <nuxt-link
               v-show="book.state === 1"
               :to="'/members/books/' + book.book_id"
@@ -68,7 +69,7 @@
               <span>{{ book.book_name }}<br /></span>
             </nuxt-link>
 
-            <span class="px-6">
+            <span>
               <AppTag
                 v-show="book.state === 0"
                 :text="'OCR待機中...'"
@@ -82,13 +83,13 @@
             </span>
           </td>
           <td class="border-dashed border-t border-gray-200 p-3">
-            <p class="px-6 text-gray-700">{{ book.description }}</p>
-            <span class="px-6 updatedat">
+            <p class="text-gray-700">{{ book.description }}</p>
+            <span class="updatedat">
               Updated at {{ displayDate(book.updated_at) }}
             </span>
           </td>
           <td class="border-dashed border-t border-gray-200 p-3 truncate">
-            <span class="text-gray-700 px-6 py-3">
+            <span class="text-gray-700 py-3">
               {{ displayState(book.state) }}
             </span>
           </td>
@@ -98,9 +99,15 @@
   </div>
 </template>
 <script lang="ts">
-import { ref, defineComponent, PropType } from 'nuxt-composition-api'
+import {
+  ref,
+  defineComponent,
+  PropType,
+  SetupContext,
+  useContext,
+} from 'nuxt-composition-api'
 import axios from 'axios'
-import { IBookList } from '../../types'
+import { IBookList } from '~/types'
 import BookListActionButton from '~/components/Book/BookListActionButton.vue'
 export default defineComponent({
   name: '',
@@ -111,7 +118,7 @@ export default defineComponent({
       type: Array as PropType<Array<IBookList>>,
     },
   },
-  setup(props: { bookList: Array<IBookList> }) {
+  setup(props: { bookList: Array<IBookList> }, { emit }: SetupContext) {
     const flagCheckToggle = ref(false)
     const selectedBookIds = ref<string[]>([])
     const displayState = (value: number) => {
@@ -132,17 +139,12 @@ export default defineComponent({
         })
       }
     }
+    const nuxtCtx = useContext()
+
     const onActionButtonClicked = async (action: string) => {
       // delete
       if (action === 'delete') {
-        try {
-          const params = { bookIds: JSON.stringify(selectedBookIds.value) }
-          const res = await axios.post(`http://localhost:8080/api/book`, params)
-          console.log(res.data)
-        } catch (e) {
-          console.log(e)
-          console.log(e.response)
-        }
+        emit('onActionButtonClicked', selectedBookIds.value)
       }
     }
     return {
