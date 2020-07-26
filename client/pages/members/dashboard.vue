@@ -1,17 +1,33 @@
 <template>
   <div>
+    <AppFullScreenLoading
+      v-if="request.state === RequestState.LOADING"
+      leading="読み込み中..."
+      comment=""
+    />
     <AppLeading
       :title="'BOOK LIST'"
       :sub-title="'本一覧'"
       class="text-center"
     />
-    <BookList v-if="bookList.length !== 0" :book-list="bookList" />
-    <div class="text-center"><PaginationCircle :book-data="bookData" /></div>
+    <BookList
+      v-if="bookList.length !== 0"
+      :book-list="bookList"
+      @onActionButtonClicked="onActionButtonClicked"
+    />
+    <div class="text-center">
+      <PaginationCircle
+        v-if="request.state !== RequestState.LOADING"
+        :book-data="bookData"
+      />
+    </div>
   </div>
 </template>
 <script lang="ts">
 import axios from 'axios'
 import { ref, onMounted } from 'nuxt-composition-api'
+import { IBookList, RequestState } from '../../types/index'
+import useLoading from '../../composables/use-loading'
 import BookList from '~/components/Book/BookList.vue'
 
 export default {
@@ -22,22 +38,56 @@ export default {
   setup(_props: {}) {
     const bookList = ref([])
     const bookData = ref<any>({})
+    const { changeLoaded, changeLoading, changeFailure, request } = useLoading()
     onMounted(async () => {
       try {
+        changeLoading()
         const res = await axios.get(
           'http://localhost:8080/api/user/3OfY3rPywDtU749NjsuynhiyOS9mjbRZPw4i'
         )
+        console.log(res)
         bookData.value = res.data
         bookList.value = res.data.data ?? []
+        changeLoaded()
+      } catch (e) {
+        if (e.response) {
+          alert(`${e.message}`)
+        } else if (e.message.includes('Network')) {
+          alert(
+            'ネットワーク障害が発生しています。しばらくしてからアクセスしてください。'
+          )
+        } else {
+          console.log(e)
+        }
+      }
+    })
+
+    const onActionButtonClicked = async (ids: string[]) => {
+      try {
+        changeLoading()
+        const params = { bookIds: JSON.stringify(ids) }
+        const res = await axios.post(`http://localhost:8080/api/book`, params)
+        changeLoaded()
       } catch (e) {
         console.log(e)
         console.log(e.response)
+        changeFailure()
+        return
       }
-    })
+
+      const rest = bookList.value.filter(
+        // eslint-disable-next-line camelcase
+        ({ book_id }: IBookList) => !ids.includes(book_id)
+      )
+      bookList.value = rest
+    }
 
     return {
       bookData,
       bookList,
+      onActionButtonClicked,
+      request,
+      RequestState,
     }
   },
 }
