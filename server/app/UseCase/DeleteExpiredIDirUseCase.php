@@ -2,15 +2,10 @@
 
 namespace App\UseCase;
 
-
 use App\Domain\ValueObject\BookId;
-use App\Domain\ValueObject\UserId;
-
 
 use App\Libs\Utils;
-use App\Repository\DB\ErrorLogRepository;
 use App\Repository\DB\ImgDirRepository;
-use App\Repository\DB\OcrTextRepository;
 
 final class DeleteExpiredIDirUseCase
 {

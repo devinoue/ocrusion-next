@@ -28,6 +28,8 @@ Route::post('/book/delete/{bookId}', 'OcrTextController@delete');
 Route::post('/book/{bookId}', 'OcrTextController@edit');
 Route::post('/book', 'BookController@delete');
 
+Route::get('/capacities/{userId}', 'UserController@capacity');
+
 // ディレクトリのチェック
 Route::get('/check', 'DeleteExpiredImgDirController');
 
