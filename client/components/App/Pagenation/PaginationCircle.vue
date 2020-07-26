@@ -4,7 +4,7 @@
       <a :href="currentPage === 1 ? '' : prevPageUrl">
         <PaginationLeftArror />
       </a>
-
+      {{ pageNumbers }} {{ lastPage }} {{ currentPage }}
       <div class="flex h-12 font-medium rounded-full bg-gray-200">
         <div
           v-for="page in pageNumbers"
@@ -22,7 +22,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'nuxt-composition-api'
+import { defineComponent, computed } from 'nuxt-composition-api'
 export default defineComponent({
   name: '',
   props: {
@@ -42,9 +42,9 @@ export default defineComponent({
     const total = props.bookData.total
     const firstPageUrl = props.bookData.first_page_url
 
-    const pageNumbers = [...Array(props.last_page).keys()].map(
-      (i: number) => ++i
-    )
+    const pageNumbers = computed(() => {
+      return [...Array(props.bookData.last_page).keys()].map((i: number) => ++i)
+    })
     return {
       currentPage,
       pageNumbers,
