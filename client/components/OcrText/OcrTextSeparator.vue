@@ -1,11 +1,15 @@
 <template>
   <div>
-    文章同士の連結文字列 :
-    <input
-      v-model="optionalSeparator"
-      type="text"
-      class="shadow w-full"
-    /><br />
+    <div class="">
+      <label class="block text-sm text-gray-600">
+        文章同士の連結に使う文字列
+      </label>
+      <input
+        v-model="optionalSeparator"
+        type="text"
+        class="shadow w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+      />
+    </div>
     <span class="text-xs"> </span>
   </div>
 </template>
