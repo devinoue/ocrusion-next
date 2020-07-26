@@ -15,6 +15,7 @@ final class UserLevel
     private $remainingTime;
     private $limitSize;
     private $bonus;
+    private $remainingCapacity;
 
     private $SECONDS_IN_A_DAY = 24 * 60 * 60;
 
@@ -61,18 +62,19 @@ final class UserLevel
     {
         switch ($this->getLevel()) {
             case 0: // free plan 50MB
-                return 50 * 1000;
+                return 50 * 1024 * 1024;
                 break;
             case 1: // special plan 500MB
-                return 500 * 1000;
+                return 500 * 1024 * 1024;
                 break;
             case 2: // premium plan 10GB
-                return 10000 * 1000;
+                return 10000 * 1024 * 1024;
                 break;
             default:
                 return 50 * 1000;
         }
     }
+
 
     private function getCurrentTotalSize(): int
     {
@@ -111,6 +113,18 @@ final class UserLevel
         if ($this->bonus->value() > 0) {
             $this->substractBonus(1);
         }
+    }
+
+    public function getRemainingCapacity()
+    {
+        // 24時間より古いデータはすべて除去する
+        $this->updateTimes();
+
+        $currentTotalSize = $this->getCurrentTotalSize();
+
+        // 現在の残り容量を記録
+        $this->remainingCapacity = $this->limitSize - $currentTotalSize;
+        return $this->remainingCapacity;
     }
 
     public function isOverLimit(): bool
