@@ -1,6 +1,6 @@
 <template>
   <button
-    class="transition duration-300 px-4 py-1 shadow-good text-white font-light tracking-wider bg-gray-900 hover:shadow-none rounded"
+    class="focus:outline-none focus:shadow-outline transition duration-500 font-semibold px-6 py-2 shadow-good text-white tracking-wider bg-gray-900 hover:shadow-none rounded"
     :class="statusClass"
     @click.stop="onClick"
   >
@@ -109,16 +109,24 @@ export default defineComponent({
 .initial {
   pointer-events: auto;
   opacity: 1;
+  background: #26a69a;
+  box-shadow: 0 10px 20px rgba(38, 166, 154, 0.2);
+  &:hover {
+    box-shadow: none;
+  }
 }
 .loading {
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
+  background-color: #1a202c;
+  box-shadow: 0 10px 20px rgba(49, 49, 49, 0.2);
 }
 .loaded {
   opacity: 1;
   cursor: not-allowed;
   pointer-events: none;
+  background: #26a69a;
 }
 // ref https://mdjunaidalam5.github.io/SpinBolt/
 .sbl-circ {
