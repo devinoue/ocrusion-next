@@ -8,13 +8,13 @@ final class UserId implements BaseValueObject
 {
     private $value;
 
-    public function __construct(string $primitive)
+    public function __construct(int $primitive)
     {
         $this->validate($primitive);
         $this->value = $primitive;
     }
 
-    public static function create(string $primitive): UserId
+    public static function create(int $primitive): UserId
     {
         return new static($primitive);
     }
@@ -24,7 +24,7 @@ final class UserId implements BaseValueObject
         // validation
     }
 
-    public function value(): string
+    public function value(): int
     {
         return $this->value;
     }

@@ -8,13 +8,13 @@ use App\Repository\DB\ImgDirRepository;
 
 class BookListUseCase
 {
-  function execute(UserId $userId)
-  {
-    $imgDirRepository = new ImgDirRepository();
-    try {
-      return $imgDirRepository->listBooks($userId);
-    } catch (\Exception $exception) {
-      return $exception->getMessage();
+    function execute(UserId $userId, $page)
+    {
+        $imgDirRepository = new ImgDirRepository();
+        try {
+            return $imgDirRepository->listBooks($userId, $page);
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
     }
-  }
 }

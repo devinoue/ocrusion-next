@@ -51,7 +51,7 @@ final class ImgDir
 
     }
 
-    public function getUserId(): string
+    public function getUserId(): int
     {
         return $this->userId->value();
     }

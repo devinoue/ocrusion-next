@@ -28,7 +28,7 @@ final class OcrText
         $this->textData = $textData;
     }
 
-    public function getUserId(): string
+    public function getUserId(): int
     {
         return $this->userId->value();
     }

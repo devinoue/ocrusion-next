@@ -67,10 +67,10 @@ class ImgDirRepository
         $model->save();
     }
 
-    public function listBooks(UserId $userId, $page = 1)
+    public function listBooks(UserId $userId)
     {
-        $page = ($page * 5);
-        $imageDirs = ImageDir::where('user_id', $userId->value())->orderBy('created_at', 'desc')->paginate($page);
+        $perPage = 5;
+        $imageDirs = ImageDir::where('user_id', $userId->value())->orderBy('created_at', 'desc')->paginate($perPage);
         return $imageDirs;
     }
 

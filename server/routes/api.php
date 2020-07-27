@@ -14,28 +14,55 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::get('/user', function () {
+//    return "ggg";
+//});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+
+
+
+
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+
+
+
+
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::group(['middleware' => 'auth:api'], function () {
 
 // ZIPファイルのアップロードだけ
-Route::post('/files/{user_id}', 'UploadFileController');
+    Route::post('/files/{user_id}', 'UploadFileController');
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
 
-// OCR実行
-Route::get('/batch', 'BatchController');
 
-// 本一覧
-Route::get('/user/{userId}', 'BookController@list');
-Route::get('/book/{id}', 'BookController@read');
-Route::post('/book/delete/{bookId}', 'OcrTextController@delete');
-Route::post('/book/{bookId}', 'OcrTextController@edit');
-Route::post('/book', 'BookController@delete');
+    // OCR実行
+    Route::get('/batch', 'BatchController');
 
-Route::get('/capacities/{userId}', 'UserController@capacity');
+    // 本一覧
+    Route::get('/user/{userId}', 'BookController@list');
+    Route::get('/book/{id}', 'BookController@read');
+    Route::post('/book/delete/{bookId}', 'OcrTextController@delete');
+    Route::post('/book/{bookId}', 'OcrTextController@edit');
+    Route::post('/book', 'BookController@delete');
 
-// ディレクトリのチェック
-Route::get('/check', 'DeleteExpiredImgDirController');
+    Route::get('/capacities/{userId}', 'UserController@capacity');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    // ディレクトリのチェック
+    Route::get('/check', 'DeleteExpiredImgDirController');
 });
+
+
 Route::group(['middleware' => 'guest:api'], function () {
     Route::post('login', 'Auth\LoginController@login');
     Route::post('register', 'Auth\RegisterController@register');

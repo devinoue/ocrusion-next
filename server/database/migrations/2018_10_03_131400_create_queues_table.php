@@ -15,7 +15,7 @@ class CreateQueuesTable extends Migration
     {
         Schema::create('queues', function (Blueprint $table) {
             $table->string('book_id')->primary();
-            $table->string('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->boolean('is_ocring')->default(false);
             $table->timestamps();
         });

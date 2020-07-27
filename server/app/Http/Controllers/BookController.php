@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ImageDir;
 use Illuminate\Http\Request;
 use App\Domain\ValueObject\BookId;
 use App\Domain\ValueObject\UserId;
@@ -16,8 +17,11 @@ class BookController extends Controller
 {
     function list(string $userId)
     {
-        $usecase = new BookListUseCase();
-        return $usecase->execute(new UserId($userId));
+        $perPage = 5;
+        $imageDirs = ImageDir::where('user_id', $userId)->orderBy('created_at', 'desc')->paginate($perPage);
+        return $imageDirs;
+//        $usecase = new BookListUseCase();
+//        return $usecase->execute(new UserId($userId));
     }
 
     function read(string $id)

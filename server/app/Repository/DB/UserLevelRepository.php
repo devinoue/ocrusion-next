@@ -36,9 +36,11 @@ class UserLevelRepository
     public function save(Entities\UserLevel $userLevel)
     {
         $model = UserLevel::find($userLevel->getUserId());
-
+        if (!$model) {
+            throw new \Exception("Can't get user id");
+        }
         $joinedTimes = $userLevel->getJoinedTimes();//これgetTimesは修正済みなのでこれも修正する必要がある
-
+//        throw \Illuminate\Validation\ValidationException::withMessages(["filed" => $joinedTimes]);
         $model->times = $joinedTimes;
         $model->bonus = $userLevel->getBonus();
         $model->save();

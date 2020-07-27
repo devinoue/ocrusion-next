@@ -28,7 +28,7 @@ final class UserLevel
         $this->limitSize = $this->getLimitSize();
     }
 
-    public function getUserId(): string
+    public function getUserId(): int
     {
         return $this->userId->value();
     }

@@ -69,7 +69,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $id = Utils::generateRamdomString(36);
+        // $id = Utils::generateRamdomString(36);
+        $id = rand(0, 9999999999999999);
         $lastUser = User::create([
             'id' => $id,
             'name' => $data['name'],

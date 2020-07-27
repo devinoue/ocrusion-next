@@ -88,7 +88,13 @@ class CloudVision
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_TIMEOUT, 15);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
-        $res1 = curl_exec($curl);
+
+        try {
+            $res1 = curl_exec($curl);
+        } catch (\Exception $e) {
+            throw new Exception("APIにアクセスできませんでした。しばらくしてからもう一度アクセスしてください。");
+        }
+
         $res2 = curl_getinfo($curl);
 
 
@@ -106,7 +112,8 @@ class CloudVision
         $arr = json_decode($json, true);
 
         if (!isset($arr['responses'])) {
-            throw new Exception("APIエラー。データに問題があります");
+//            throw \Illuminate\Validation\ValidationException::withMessages(["filed" => $json]);
+            throw new Exception($json);
         }
 
 

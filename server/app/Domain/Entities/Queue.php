@@ -22,7 +22,7 @@ final class Queue
         $this->updatedAt = $updatedAt;
     }
 
-    public function getUserId(): string
+    public function getUserId(): int
     {
         return $this->userId->value();
     }
@@ -36,10 +36,12 @@ final class Queue
     {
         return $this->updatedAt;
     }
+
     public function getIsOcring(): bool
     {
         return $this->isOcring;
     }
+
     public function changeStatusOcring()
     {
         $this->isOcring = true;

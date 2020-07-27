@@ -15,8 +15,8 @@ class CreateBatchErrorLogsTable extends Migration
     {
         Schema::create('batch_error_logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('error_message',10000);
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->string('error_message', 10000);
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('book_id');
             $table->timestamps();
         });
