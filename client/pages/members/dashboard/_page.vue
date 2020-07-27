@@ -1,10 +1,5 @@
 <template>
   <div>
-    <AppFullScreenLoading
-      v-if="request.state === RequestState.LOADING"
-      leading="読み込み中..."
-      comment=""
-    />
     <AppLeading
       :title="'BOOK LIST'"
       :sub-title="'本一覧'"
@@ -16,18 +11,15 @@
       @onActionButtonClicked="onActionButtonClicked"
     />
     <div class="text-center">
-      <PaginationCircle
-        v-if="request.state !== RequestState.LOADING"
-        :book-data="bookData"
-      />
+      <PaginationCircle v-if="bookList.length !== 0" :book-data="bookData" />
     </div>
   </div>
 </template>
 <script lang="ts">
 import axios from 'axios'
-import { ref, onMounted } from 'nuxt-composition-api'
-import { IBookList, RequestState } from '../../types/index'
-import useLoading from '../../composables/use-loading'
+import { ref, onMounted, SetupContext } from '@vue/composition-api'
+import { IBookList, RequestState } from '~/types/index'
+import useLoading from '~/composables/use-loading'
 import BookList from '~/components/Book/BookList.vue'
 
 export default {
@@ -35,16 +27,17 @@ export default {
   // middleware: 'auth',
   layout: 'member',
   components: { BookList },
-  setup(_props: {}) {
+  setup(_props: {}, { root }: SetupContext) {
+    const page = root.$route.params?.page ?? 1
+    const userId = root.$store.getters['Auth/user'].id
+    console.log(root.$store.getters['Auth/token'])
     const bookList = ref([])
     const bookData = ref<any>({})
     const { changeLoaded, changeLoading, changeFailure, request } = useLoading()
     onMounted(async () => {
       try {
         changeLoading()
-        const res = await axios.get(
-          'http://localhost:8080/api/user/3OfY3rPywDtU749NjsuynhiyOS9mjbRZPw4i'
-        )
+        const res = await axios.get(`/api/user/${userId}?page=${page}`)
         console.log(res)
         bookData.value = res.data
         bookList.value = res.data.data ?? []

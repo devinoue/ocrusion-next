@@ -25,7 +25,7 @@
   </div>
 </template>
 <script lang="ts">
-import { ref, onMounted, SetupContext, computed } from 'nuxt-composition-api'
+import { ref, onMounted, SetupContext, computed } from '@vue/composition-api'
 import axios from 'axios'
 import useLoading from '../../../composables/use-loading'
 import { RequestState } from '../../../types/index'
@@ -34,6 +34,7 @@ export default {
   name: '',
   layout: 'member',
   setup(_props: {}, ctx: SetupContext) {
+    const userId = ctx.root.$store.getters['Auth/user'].id
     const { changeLoaded, changeLoading, changeFailure, request } = useLoading()
     const bookId = ctx.root.$route.params?.bookId ?? null
     const mode = ref<'edit' | 'display'>('display')
@@ -62,14 +63,14 @@ export default {
     onMounted(async () => {
       try {
         changeLoading()
-        const baseApi = axios.create({ baseURL: 'http://localhost:8080' })
-        const result = await baseApi.get(`/api/book/${bookId}`)
+        const result = await axios.get(`/api/book/${bookId}`)
         console.log(result)
         ocrTexts.value = result.data.ocrTexts
         bookDetails.value = result.data.imageDirs
         changeLoaded()
       } catch (e) {
         changeFailure()
+        console.log(e)
         if (e.response) {
           alert(`${e.message}`)
         } else if (e.message.includes('Network')) {

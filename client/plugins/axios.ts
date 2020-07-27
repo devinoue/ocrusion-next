@@ -1,8 +1,8 @@
 import axios from 'axios'
-import {Context} from '@nuxt/types'
+import { Context } from '@nuxt/types'
 
-export default ({app, store, redirect}: Context) => {
-  axios.defaults.baseURL = process.env.apiUrl = 'http://localhost:8000'
+export default ({ app, store }: Context) => {
+  axios.defaults.baseURL = process.env.apiUrl = 'http://localhost:8080'
   if (process.server) {
     return
   }
@@ -16,5 +16,4 @@ export default ({app, store, redirect}: Context) => {
     }
     return request
   })
-
 }
