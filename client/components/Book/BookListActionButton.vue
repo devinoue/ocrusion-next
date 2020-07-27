@@ -7,6 +7,8 @@
       <option value="delete">選択された項目を削除</option>
     </select>
     <AppLoadingSmallButton
+      class="py-0 w-auto"
+      :adding-class="['p-0', 'w-auto']"
       initial-label="実行"
       completed-label="完了しました"
       @onClick="onActionButtonClicked"

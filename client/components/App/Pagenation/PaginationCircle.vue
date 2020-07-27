@@ -1,10 +1,9 @@
 <template>
   <div class="flex flex-col items-center my-12">
     <div class="flex text-gray-700">
-      <a :href="currentPage === 1 ? '' : prevPageUrl">
+      <nuxt-link :to="prevPage">
         <PaginationLeftArror />
-      </a>
-      {{ pageNumbers }} {{ lastPage }} {{ currentPage }}
+      </nuxt-link>
       <div class="flex h-12 font-medium rounded-full bg-gray-200">
         <div
           v-for="page in pageNumbers"
@@ -12,17 +11,25 @@
           :class="page === currentPage ? 'bg-teal-600 text-white' : ''"
           class="w-12 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in rounded-full"
         >
-          <a :href="path + 'page=' + page">{{ page }}</a>
+          <nuxt-link :to="numberPage(page)">{{ page }}</nuxt-link>
         </div>
       </div>
-      <a :href="currentPage === to ? '#' : nextPageUrl">
+      <nuxt-link :to="nextPage">
         <PaginationRightArrow />
-      </a>
+      </nuxt-link>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, computed } from 'nuxt-composition-api'
+
+const getPageNumberFromUrl = (url: string) => {
+  const pattern = /[\d]*$/g
+
+  const result: any = url.match(pattern)
+  return result.length > 0 ? result[0] : null
+}
+
 export default defineComponent({
   name: '',
   props: {
@@ -33,7 +40,7 @@ export default defineComponent({
   setup(props: any) {
     const currentPage = props.bookData.current_page
     const from = props.bookData.from
-    const to = props.bookData.to
+    const toto = props.bookData.to
     const lastPage = props.bookData.last_page
     const nextPageUrl = props.bookData.next_page_url
     const path = props.bookData.path
@@ -45,11 +52,31 @@ export default defineComponent({
     const pageNumbers = computed(() => {
       return [...Array(props.bookData.last_page).keys()].map((i: number) => ++i)
     })
+    const numberPage = (page: number) => {
+      if (!page) return '#'
+      return `/members/dashboard/${page}`
+    }
+    const prevPage = computed(() => {
+      if (!prevPageUrl) return '#'
+      return currentPage === 1
+        ? '#'
+        : `/members/dashboard/${getPageNumberFromUrl(prevPageUrl)}`
+    })
+    const nextPage = computed(() => {
+      if (!nextPageUrl) return '#'
+      return currentPage === toto
+        ? '#'
+        : `/members/dashboard/${getPageNumberFromUrl(nextPageUrl)}`
+    })
+
     return {
+      prevPage,
+      nextPage,
+      numberPage,
       currentPage,
       pageNumbers,
       from,
-      to,
+      toto,
       lastPage,
       nextPageUrl,
       path,

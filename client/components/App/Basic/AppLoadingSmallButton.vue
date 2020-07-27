@@ -1,6 +1,6 @@
 <template>
   <button
-    class="focus:outline-none focus:shadow-outline transition duration-500 font-semibold px-6 text-white tracking-wider bg-gray-900 hover:shadow-none rounded"
+    class="gradient-button focus:outline-none focus:shadow-outline font-semibold px-6 text-white tracking-wider bg-gray-900 rounded"
     :class="statusClass"
     @click.stop="onClick"
   >
@@ -106,12 +106,25 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
+.gradient-button {
+  transition: 0.4s;
+  // transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background-size: 180% auto;
+}
 .initial {
   pointer-events: auto;
   opacity: 1;
-  background: #26a69a;
+  background-image: linear-gradient(
+    217deg,
+    #26a699d0 0%,
+    hsl(165, 63%, 53%) 40%,
+    #26a699d0 100%
+  );
   &:hover {
-    background: #28c5b5;
+    background-position: right center;
+  }
+  &:active {
+    filter: blur(10px);
   }
 }
 .loading {

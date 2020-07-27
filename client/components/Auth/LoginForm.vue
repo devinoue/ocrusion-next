@@ -36,7 +36,7 @@
         <input
           id="remember"
           v-model="remember"
-          class="px-5 py-1 text-gray-700 bg-gray-200 rounded"
+          class="text-teal-500 rowCheckbox px-5 py-1 form-checkbox focus:outline-none focus:shadow-outline"
           type="checkbox"
           required
         />

@@ -1,6 +1,6 @@
 <template>
   <button
-    class="focus:outline-none focus:shadow-outline transition duration-500 font-semibold px-6 py-2 shadow-good text-white tracking-wider bg-gray-900 hover:shadow-none rounded"
+    class="gradient-button focus:outline-none focus:shadow-outline font-semibold px-6 py-2 text-white tracking-wider bg-gray-900 rounded w-full"
     :class="statusClass"
     @click.stop="onClick"
   >
@@ -23,6 +23,7 @@ type Props = {
   completedLabel: string
   failureLabel: string
   isConfirm: boolean
+  addingClass: string[]
 }
 export default defineComponent({
   name: '',
@@ -47,6 +48,11 @@ export default defineComponent({
       required: false,
       default: 'Failure',
     },
+    addingClass: {
+      type: Array,
+      required: false,
+      default: Array,
+    },
   },
   setup(props: Props, { emit }: SetupContext) {
     const { changeUninitialized } = useLoading()
@@ -58,42 +64,45 @@ export default defineComponent({
     const onClick = () => {
       emit('onClick')
     }
-
+    const addingClass = () => {
+      return props.addingClass.length > 0 ? props.addingClass : []
+    }
     const label = ref(props.initialLabel)
-    const statusClass = ref('initial')
+    const statusClass = ref(['initial', ...addingClass()])
     if (!props.isConfirm) {
-      statusClass.value = 'loading'
+      statusClass.value = ['loading', ...addingClass()]
     }
     watch(
       () => props.isConfirm,
       () => {
         if (!props.isConfirm) {
-          statusClass.value = 'loading'
+          statusClass.value = ['loading', ...addingClass()]
         } else if (props.isConfirm) {
-          statusClass.value = 'initial'
+          statusClass.value = ['initial', ...addingClass()]
         }
       }
     )
+
     watch(
       () => request.state,
       () => {
         if (request.state === RequestState.UNINITIALIZED) {
           label.value = props.initialLabel
-          statusClass.value = 'initial'
+          statusClass.value = ['initial', ...addingClass()]
         } else if (request.state === RequestState.LOADING) {
           label.value = 'Loading...'
-          statusClass.value = 'loading'
+          statusClass.value = ['loading', ...addingClass()]
         } else if (request.state === RequestState.LOADED) {
           label.value = props.completedLabel
           setTimeout(() => {
-            statusClass.value = 'loaded'
+            statusClass.value = ['loaded', ...addingClass()]
             label.value = props.initialLabel
             changeUninitialized()
           }, 3000)
         } else if (request.state === RequestState.FAILURE) {
           label.value = props.failureLabel
           setTimeout(() => {
-            statusClass.value = 'loaded'
+            statusClass.value = ['loaded', ...addingClass()]
             label.value = props.initialLabel
             changeUninitialized()
           }, 3000)
@@ -106,21 +115,37 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
+.gradient-button {
+  transition: 0.4s;
+  // transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background-size: 180% auto;
+}
 .initial {
   pointer-events: auto;
+  display: inline-block;
   opacity: 1;
-  background: #26a69a;
-  box-shadow: 0 10px 20px rgba(38, 166, 154, 0.2);
+  background-image: linear-gradient(
+    217deg,
+    #26a699d0 0%,
+    hsl(165, 63%, 53%) 40%,
+    #26a699d0 100%
+  );
+  box-shadow: 0 10px 20px rgba(25, 196, 179, 0.384);
   &:hover {
-    box-shadow: none;
+    background-position: right center;
+    box-shadow: 0 5px 5px rgba(25, 196, 179, 0.384);
+  }
+  &:active {
+    filter: blur(20px);
   }
 }
+
 .loading {
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
   background-color: #1a202c;
-  box-shadow: 0 10px 20px rgba(49, 49, 49, 0.2);
+  box-shadow: 0 20px 20px rgba(27, 27, 27, 0.438);
 }
 .loaded {
   opacity: 1;

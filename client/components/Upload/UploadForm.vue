@@ -84,27 +84,22 @@ import { reactive, SetupContext, computed, toRefs } from 'nuxt-composition-api'
 
 import { RequestState } from '~/types'
 
-const defaultForms = {
-  userId: '3OfY3rPywDtU749NjsuynhiyOS9mjbRZPw4i',
-  file: null as any,
-  message: '',
-  dragging: false,
-  isSuccess: false,
-  isConfirm: false,
-  bookName: '',
-  description: '',
-  bookOptions: '{}',
-}
 export default {
   name: '',
-  props: {
-    status: {
-      type: String,
-      required: true,
-      default: RequestState.UNINITIALIZED,
-    },
-  },
-  setup(_props: {}, { emit }: SetupContext) {
+
+  setup(_props: {}, { root, emit }: SetupContext) {
+    const defaultForms = {
+      userId: root.$store.getters['Auth/user'].id,
+      file: null as any,
+      message: '',
+      dragging: false,
+      isSuccess: false,
+      isConfirm: false,
+      bookName: '',
+      description: '',
+      bookOptions: '{}',
+    }
+
     const forms = reactive(defaultForms)
 
     const completedCondition = computed(() => {
