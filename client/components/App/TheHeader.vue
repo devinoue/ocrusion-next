@@ -21,18 +21,14 @@
           </svg>
         </button>
       </div>
-      <TheMainMenu v-if="isTop" />
-      <TheMemberMenu v-else-if="!isTop" />
+      <TheMainMenu :is-member="!isTop" />
     </div>
   </nav>
 </template>
 <script lang="ts">
-import TheMainMenu from '~/components/App/TheMainMenu.vue'
-import TheMemberMenu from '~/components/App/TheMemberMenu.vue'
 // import { ref } from 'nuxt-composition-api'
 export default {
   name: '',
-  components: { TheMainMenu, TheMemberMenu },
   props: {
     isTop: {
       type: Boolean,

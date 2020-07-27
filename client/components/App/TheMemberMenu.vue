@@ -1,9 +1,17 @@
 <template>
   <div class="hidden lg:block">
     <ul class="inline-flex items-center">
-      <li><a class="px-4 menu-link" href="/">トップ</a></li>
-      <li><a class="px-4 menu-link" href="/members/dashboard">一覧</a></li>
-      <li><a class="px-4 menu-link" href="/members/upload">アップロード</a></li>
+      <li><nuxt-link class="px-4 menu-link" to="/">トップ</nuxt-link></li>
+      <li>
+        <nuxt-link class="px-4 menu-link" to="/members/dashboard/1"
+          >一覧</nuxt-link
+        >
+      </li>
+      <li>
+        <nuxt-link class="px-4 menu-link" to="/members/upload"
+          >アップロード</nuxt-link
+        >
+      </li>
       <li>
         <a class="px-4 menu-link" href="#" @click.prevent="logout">
           ログアウト
