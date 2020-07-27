@@ -6,40 +6,37 @@
       :status="status"
       @onClick="onClick()"
     />
+    <nuxt-link to="/test">fffff</nuxt-link>
     <button @click="onClick()">fff</button>
-    <button @click="onActionClicked()">消す</button>
-    <table>
-      <tr v-for="book in list2" :key="book.book_id">
-        <td>
-          <input v-model="bookIds" type="checkbox" :value="book.book_id" />
-        </td>
-        <td>{{ book.book_id }}</td>
-        <td>{{ book.book_name }}</td>
-      </tr>
-    </table>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from '@vue/composition-api'
-import axios, { AxiosResponse } from 'axios'
+import { ref, onMounted, SetupContext } from '@vue/composition-api'
+import axios from 'axios'
+import useLoading from '../composables/use-loading'
 export default {
   name: 'Login',
   layout: 'default',
-  setup() {
+  setup(_props: {}, { root }: SetupContext) {
     const list2 = ref([])
+    console.log(root.$store.getters['Auth/token'])
+    root.$store.commit('Auth/SET_TOKEN', 'fffhffff')
+    console.log(root.$store.getters['Auth/token'])
     const status = ref('UNINITIALIZED')
     const error = ref(null)
     const onClick = async () => {
-      const res: void | AxiosResponse = await axios
+      axios
         .get(
           'http://localhost:8080/api/capacities/3OfY3rPywDtU749NjsuynhiyOS9mjbRZPw4i'
         )
+        .then((res) => {
+          console.log(res.data.message)
+        })
         .catch((e) => {
           console.log(e)
           console.log(e.response)
         })
-      console.log(res.data.message)
     }
 
     return {
