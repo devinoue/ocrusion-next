@@ -1,6 +1,6 @@
-import {Context} from '@nuxt/types'
+import { Context } from '@nuxt/types'
 
-export default async ({store}: Context) => {
+export default async ({ store }: Context) => {
   const user = store.getters['Auth/user']
 
   if (!user) {
