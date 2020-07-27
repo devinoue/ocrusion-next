@@ -112,10 +112,9 @@ margin: 0;
     font-size: .875rem;
     letter-spacing: 0.1em;
     line-height: 1.55;
-
-    &:hover {
-        color:#9da4b3;
-    }
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
 }
 .button {
     border-width: 0;
