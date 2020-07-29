@@ -78,7 +78,7 @@ export default defineComponent({
     content: '';
     width: 100%;
     height: 2px;
-    background: #0a3557;
+    background: #053657e8;
     transform: scale(1, 1);
   }
 }
