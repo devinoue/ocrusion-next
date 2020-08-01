@@ -11,28 +11,55 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    // title: process.env.npm_package_name || '',
-    titleTemplate: '自炊OCRアプリ | %s',
+    titleTemplate: '%s | 自炊OCRアプリ',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || '',
+        content:
+          '自炊した本をまとめて日本語OCRしたい。その時はぜひ自炊OCRアプリをご利用ください。簡単操作であっという間にOCRが完了。すぐにテキスト形式でデータを入手できます。まずは無料版を体験してください。',
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content:
+          '自炊した本のOCRを楽にしたい。そういうときは自炊OCRアプリをご利用ください。シンプルな操作ですぐに変換。簡単にテキストデータに変換してくれます。まずは無料版からお試しください。',
+      },
+      { hid: 'og:url', property: 'og:type', content: 'https://example.com' },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: 'OGPイメージのファイルパス',
       },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+      {
+        rel: 'apple-touch-icon',
+        size: '180x180',
+        href: '/apple-touch-icon.png',
+      },
+    ],
   },
   /*
    ** Global CSS
    */
-  css: ['~/assets/css/test.scss', '~/assets/css/ui.scss'],
+  css: [
+    '~/assets/css/test.scss',
+    '~/assets/css/ui.scss',
+    '~/assets/css/animate.min.css',
+  ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/axios'],
+  plugins: [
+    '~/plugins/axios',
+    { src: '@/plugins/localStorage', ssr: false },
+    { src: '~plugins/nuxt-client-init.js', ssr: false },
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -51,7 +78,11 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/dotenv', '@nuxtjs/style-resources'],
+  modules: [
+    '@nuxtjs/dotenv',
+    '@nuxtjs/style-resources',
+    ['vue-scrollto/nuxt', { duration: 700 }],
+  ],
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
