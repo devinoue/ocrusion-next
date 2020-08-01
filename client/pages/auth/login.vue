@@ -15,6 +15,9 @@ import useLoading from '~/composables/use-loading'
 
 export default {
   name: 'Login',
+  head: {
+    title: 'ログイン',
+  },
   setup(_props: {}, { root }: SetupContext) {
     const { changeLoaded, changeLoading, changeFailure } = useLoading()
     console.log(root.$route)

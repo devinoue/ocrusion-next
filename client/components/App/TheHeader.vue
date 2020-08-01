@@ -1,11 +1,11 @@
 <template>
-  <nav class="mx-4 leading-none mt-3 mb-12">
-    <span class="text-sm font-bold text-gray-500"
-      >本を自炊して快適な読書を支援するOCRサービス「OCRusion」</span
+  <div class="mx-4 leading-none mt-3 mb-12">
+    <span class="inline-block text-sm font-bold text-gray-500 pb-3"
+      >本を自炊して快適な読書を支援するOCRサービス「自炊OCRアプリ」</span
     >
     <div class="py-0 flex justify-between items-center">
       <a class="font-bold text-2xl md:text-4xl" href="#">
-        自炊OCRアプリ
+        <img src="~/static/logo.png" class="main-logo" />
       </a>
       <div class="block lg:hidden">
         <button
@@ -23,7 +23,7 @@
       </div>
       <TheMainMenu :is-member="!isTop" />
     </div>
-  </nav>
+  </div>
 </template>
 <script lang="ts">
 // import { ref } from 'nuxt-composition-api'
@@ -40,4 +40,9 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.main-logo {
+  box-sizing: border-box;
+  width: 50%;
+}
+</style>

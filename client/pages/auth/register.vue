@@ -11,6 +11,9 @@ import { RegisterApi } from '~/api/RegisterApi'
 
 export default {
   name: 'Register',
+  head: {
+    title: '新規登録',
+  },
   setup(_props: {}, { root }: SetupContext) {
     const { changeLoaded, changeLoading, changeFailure } = useLoading()
     const onRegisterButtonPushed = async (data: any) => {

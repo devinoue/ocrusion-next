@@ -6,7 +6,7 @@
       <p class="text-gray-800 font-medium">アップロードの詳細</p>
       <div class="">
         <label class="block text-sm text-gray-600">
-          本の名前
+          本の名前(空欄可)
         </label>
         <input
           v-model="bookName"
@@ -18,7 +18,7 @@
       </div>
       <div class="mt-2">
         <label class="block text-sm text-gray-600">
-          説明
+          説明(空欄可)
         </label>
         <textarea
           v-model="description"

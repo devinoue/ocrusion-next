@@ -50,8 +50,8 @@ export default defineComponent({
         ]
       : [
           { name: 'ホーム', path: '/' },
-          { name: '特徴・機能', path: '/#' },
-          { name: 'プラン', path: '/#' },
+          { name: '特徴・機能', path: { path: '/', hash: '#feature' } },
+          { name: 'プラン', path: { path: '/', hash: '#plan' } },
           { name: 'ログイン', path: '/auth/login' },
         ]
 

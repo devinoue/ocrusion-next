@@ -24,6 +24,9 @@ import useLoading from '~/composables/use-loading'
 export default {
   name: 'Upload',
   layout: 'member',
+  head: {
+    title: 'アップロード',
+  },
   setup(_props: {}, { root }: SetupContext) {
     const userId = root.$store.getters['Auth/user'].id
     // const userId = '1222333322233'

@@ -32,6 +32,9 @@ import { RequestState } from '../../../types/index'
 
 export default {
   name: '',
+  head: {
+    title: '読書を楽しむなら自炊OCR',
+  },
   layout: 'member',
   setup(_props: {}, ctx: SetupContext) {
     const userId = ctx.root.$store.getters['Auth/user'].id

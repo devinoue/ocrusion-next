@@ -1,22 +1,46 @@
 <template>
   <div>
-    <AppLoadingButton
-      initial-label="ダウンロード"
-      completed-label="成功しました"
-      :status="status"
-      @onClick="onClick()"
+    <SiteHero />
+    <AppLeading
+      id="feature"
+      :title="'FEATURE'"
+      :sub-title="'機能・特徴'"
+      class="text-center"
     />
-    <nuxt-link to="/test">fffff</nuxt-link>
-    <button @click="onClick()">fff</button>
+    <SiteFeature />
+    <div class="bg-grey-50 py-8">
+      <AppLeading
+        id="plan"
+        :title="'PLAN'"
+        :sub-title="'プラン一覧'"
+        class="text-center"
+      />
+      <SitePricing />
+    </div>
+
+    <AppLeading
+      :title="'FAQ'"
+      :sub-title="'よくあるご質問'"
+      class="text-center"
+    />
+    <SiteFaq />
+    <SiteFooter />
   </div>
 </template>
 
 <script lang="ts">
-import { ref, onMounted, SetupContext } from '@vue/composition-api'
+/**
+<a href='https://www.freepik.com/free-photos-vectors/school'>School vector created by macrovector - www.freepik.com</a>
+
+ */
+
+import { ref, SetupContext } from '@vue/composition-api'
 import axios from 'axios'
-import useLoading from '../composables/use-loading'
 export default {
   name: 'Login',
+  head: {
+    title: '自炊をOCRする高性能AIをお求めなら',
+  },
   layout: 'default',
   setup(_props: {}, { root }: SetupContext) {
     const list2 = ref([])
@@ -49,4 +73,21 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.anime-enter-active {
+  transition: opacity 0.25s ease-out;
+}
+
+.anime-leave-active {
+  transition: opacity 0.25s ease-in;
+}
+
+.anime-enter,
+.anime-leave-active {
+  opacity: 0;
+}
+.bg-grey-50 {
+  background-color: #f5f7fa;
+  background-color: rgba(245, 247, 250, 1);
+}
+</style>

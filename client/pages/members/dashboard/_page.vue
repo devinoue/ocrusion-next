@@ -1,10 +1,6 @@
 <template>
   <div>
-    <AppLeading
-      :title="'BOOK LIST'"
-      :sub-title="'本一覧'"
-      class="text-center"
-    />
+    <AppLeading :title="'BOOKS'" :sub-title="'本一覧'" class="text-center" />
     <BookList
       v-if="bookList.length !== 0"
       :book-list="bookList"
@@ -27,6 +23,9 @@ export default {
   // middleware: 'auth',
   layout: 'member',
   components: { BookList },
+  head: {
+    title: '本一覧',
+  },
   setup(_props: {}, { root }: SetupContext) {
     const page = root.$route.params?.page ?? 1
     const userId = root.$store.getters['Auth/user'].id
