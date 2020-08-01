@@ -11,7 +11,10 @@
         "test": "jest"
     },
     "dependencies": {
-        "nuxt": "^2.13.0"
+        "animate.css": "^4.1.0",
+        "nuxt": "^2.13.0",
+        "vue-scrollto": "^2.18.2",
+        "vuex-persistedstate": "^3.0.1"
     },
     "devDependencies": {
         "@nuxt/typescript-build": "^1.0.3",
