@@ -1,8 +1,8 @@
 import { Context } from '@nuxt/types'
 
 export default ({ store, redirect }: Context) => {
-  console.log(store.getters['Auth/user'])
-  if (!store.getters['Auth/check']) {
+  console.log(store.getters['Auth/token'])
+  if (!store.getters['Auth/token']) {
     return redirect('/auth/login')
   }
 }
