@@ -49,7 +49,6 @@ export default {
   css: [
     '~/assets/css/test.scss',
     '~/assets/css/ui.scss',
-    '~/assets/css/animate.min.css',
   ],
   /*
    ** Plugins to load before mounting the App
@@ -87,5 +86,7 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  build: {
+      standalone: true, //これを追加！
+  },
 }
