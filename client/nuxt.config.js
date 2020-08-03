@@ -46,10 +46,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-    '~/assets/css/test.scss',
-    '~/assets/css/ui.scss',
-  ],
+  css: ['~/assets/css/test.scss', '~/assets/css/ui.scss'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -86,7 +83,5 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {
-      standalone: true, //これを追加！
-  },
+  build: {},
 }
