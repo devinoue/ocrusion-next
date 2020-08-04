@@ -1,11 +1,17 @@
 <template>
-  <div>
-    <SiteHero />
+  <div class="">
+    <div class="gradient">
+      <div class="gradient-back">
+        <SiteHero2 />
+        <SiteSeparator />
+      </div>
+    </div>
+
     <AppLeading
       id="feature"
       :title="'FEATURE'"
       :sub-title="'機能・特徴'"
-      class="text-center"
+      class="text-center bg-white"
     />
     <SiteFeature />
     <div class="bg-grey-50 py-8">
@@ -89,5 +95,23 @@ export default {
 .bg-grey-50 {
   background-color: #f5f7fa;
   background-color: rgba(245, 247, 250, 1);
+}
+.gradient {
+  background-image: url(../static/back1.jpg);
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(46, 46, 46, 0.726);
+  background-blend-mode: darken;
+}
+.gradient-back {
+  background: linear-gradient(
+    137deg,
+    #81d3e11f,
+    #00b7d75b 12%,
+    rgba(45, 140, 236, 0.568) 30%,
+    #5860ff1c 47%,
+    rgba(105, 95, 244, 0.322) 58%,
+    #ae5bcb
+  );
 }
 </style>
