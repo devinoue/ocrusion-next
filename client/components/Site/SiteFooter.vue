@@ -11,12 +11,11 @@
       <div class="flex flex-col items-center justify-between mt-6 md:flex-row">
         <div>
           <a href="#" class="text-xl font-bold">
-            <!-- <img
+            <img
               src="~/static/white-logo.png"
               class="white-logo"
               alt="white logo"
-          />
-          -->
+            />
           </a>
         </div>
         <div class="flex mt-4 md:m-0">
