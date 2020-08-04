@@ -1,10 +1,17 @@
 <template>
   <div>
-    <nav class="z-50 max-w-6xl mx-auto" :class="headerClass">
+    <nav
+      class="transition duration-1000 ease-in-out z-50 max-w-6xl mx-auto"
+      :class="headerClass"
+    >
       <TheHeader :is-top="true" />
     </nav>
 
-    <nuxt />
+    <transition name="anime">
+      <keep-alive>
+        <nuxt />
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
@@ -22,7 +29,7 @@ export default {
     })
 
     const headerClass = computed(() => {
-      console.log(scrollY.value)
+      // console.log(scrollY.value)
       return
       return scrollY.value > 900
         ? ['sticky', 'top-0', 'bg-white', 'pb-0', 'w-full', 'pt-6']
@@ -33,4 +40,17 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.anime-enter-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.anime-leave-active {
+  transition: opacity 0.5s ease-in;
+}
+
+.anime-enter,
+.anime-leave-active {
+  opacity: 0;
+}
+</style>
