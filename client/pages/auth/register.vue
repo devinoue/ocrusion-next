@@ -29,6 +29,7 @@ export default {
         }
         alert(`${e.message}`)
         changeFailure()
+        return
       }
 
       try {
