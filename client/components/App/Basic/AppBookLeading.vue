@@ -22,4 +22,11 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.book-subtitle {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-feature-settings: 'palt';
+  font-size: 1.8em;
+  font-weight: 900;
+}
+</style>
