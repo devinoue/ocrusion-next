@@ -14,14 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
-    $queue = DB::table('queues')->where('is_ocring', false)->get();
-
     return view('welcome');
 });
 
 Route::get('/a', function () {
-    return ["message" => "ffff"];
+    return ["message" => "test"];
 });
 
 Auth::routes();

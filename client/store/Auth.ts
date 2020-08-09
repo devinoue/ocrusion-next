@@ -45,11 +45,9 @@ export const actions: ActionTree<RootState, RootState> = {
     try {
       const loginApi = new LoginApi()
       const res = await loginApi.post(data)
-      // commit('SET_USER', res.data)
       return res
     } catch (e) {
       commit('FETCH_USER_FAILURE')
-      console.log(e)
       throw e
     }
   },
