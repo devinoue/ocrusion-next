@@ -18,7 +18,7 @@
       </div>
       <div class="">
         <label class="block text-sm text-gray-600">
-          パスワード
+          パスワード(6文字以上の半角英数字・記号)
         </label>
         <input
           v-model="password"
@@ -69,6 +69,10 @@ export default {
     const onRegisterButtonPushed = () => {
       if (forms.password !== forms.passwordConfirmation) {
         alert('パスワードが異なります。同じパスワードを入力してください。')
+        return
+      }
+      if (forms.password.length < 6) {
+        alert('パスワードは6文字以上で登録してください。')
         return
       }
       const params = {
