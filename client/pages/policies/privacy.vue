@@ -1,0 +1,93 @@
+<template>
+  <section class="pt-24">
+    <div
+      class="w-full mx-auto max-w-2xl m-4 p-10 text-gray-700 bg-white rounded shadow-xl"
+    >
+      <h2 class="text-lg font-bold py-3">
+        当サイトのWEBサービスの個人情報保護方針について
+      </h2>
+      <p class="pl-4">
+        当サイトのWEBサービスでは、セキュリティシステムの強化を目指し、その機密性、完全性、可用性の改善・向上を目指して、不正なアクセスによる紛失、改ざん、漏洩を未然に防ぐよう、厳重に管理を行っております。
+      </p>
+      <h2 class="text-lg font-bold py-3">個人情報の利用目的</h2>
+      <p class="pl-4">
+        当サイトのサービスのご利用において、名前、メールアドレスなどを要求することがありますが、これらの個人情報は必要かつ許可された場合において利用させて頂くもので、それ以外の目的において個人情報を利用することは一切いたしません。
+      </p>
+      <h2 class="text-lg font-bold py-3">
+        個人情報の第三者への開示、提供の禁止について
+      </h2>
+      <p class="pl-4">
+        当サイトでサービスご利用者からお預かりした個人情報は適切な方法で管理されるか、不要になった時点で廃棄されます。<br />
+        次のいずれかの場合を除き、その個人情報を第三者に開示することはいたしません。
+      </p>
+      <ul class="pl-4">
+        <li>サービス利用者本人の同意がある場合</li>
+        <li>
+          サービス利用者本人が希望されるサービスのために、当サイト管理者が業務を委託する業者に開示する必要がある場合
+        </li>
+        <li>法令に基づき、個人情報の開示が必要になった場合</li>
+      </ul>
+      <h2 class="text-lg font-bold py-3">個人情報の安全対策について</h2>
+      <p class="pl-4">
+        当サイトでは個人情報の完全性、機密性、可用性の３つの原則に基づいて適切に管理し、利用することを努めます。そのために万全のセキュリティ対策を講じ、必要に応じて適宜、改善するよう努力します。
+      </p>
+      <h2 class="text-lg font-bold py-3">Facebookアプリについて</h2>
+      <p class="pl-4">
+        当サイトでは、提供するサービス利用の改善のためにFacebookと連携をしています。このアプリを通じて得た情報は、個人を特定するものではありません。個人情報の取扱はサービスの必要と判断した上で利用され、不要となった情報は全て廃棄されます。
+      </p>
+      <h2 class="text-lg font-bold py-3">法令・規範の遵守</h2>
+      <p class="pl-4">
+        当サイトは収集された個人情報について、日本の法令に基づいて適切に利用さます。<br />
+        またここに明記されたプライバシーポリシーの内容は適宜見直され、その改善に努めます。
+      </p>
+      <h2 class="text-lg font-bold py-3">免責事項</h2>
+      <p class="pl-4">
+        当サイトのサービス、コンテンツは可能な限り正確な情報を発信するよう努めます。<br />
+        しかし誤った情報や古い情報が含まれている場合について、連絡くだされば即座に訂正することに努めます。
+      </p>
+      <p class="pl-4">
+        また当サイトの内容によって生じたトラブルについては、一切の責任を負いかねますのでご了承ください。
+      </p>
+      <h2 class="text-lg font-bold py-3">お問い合わせ</h2>
+      <p class="pl-4">
+        当サイトの個人情報の取扱についてのお問い合わせは、このブログのコメント欄、もしくは以下の【お問い合わせフォーム】よりご連絡ください。
+      </p>
+      <p class="center-align">
+        <br /><br />
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLScucDvr1yBURD9l8SHIttG8jEaYPaDhb4z0LVxlwYy2ZtJQWw/viewform?embedded=true"
+          width="640"
+          height="882"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          >読み込んでいます...</iframe
+        >
+      </p>
+    </div>
+  </section>
+</template>
+<script lang="ts">
+import { ref } from 'nuxt-composition-api'
+export default {
+  name: '',
+  setup() {
+    return {}
+  },
+}
+</script>
+<style lang="scss" scoped>
+li {
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    background-color: #636363;
+    border-radius: 50%;
+    position: relative;
+    top: -1px;
+    margin-right: 5px;
+  }
+}
+</style>
