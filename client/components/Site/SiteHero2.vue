@@ -1,10 +1,8 @@
 <template>
   <!--Hero-->
   <section class="w-full h-screen pt-32 md:max-w-6xl md:mx-auto">
-    <div class="flex flex-col md:flex-row">
-      <div
-        class="mx-4flex flex w-full flex-wrap flex-col md:flex-row items-center"
-      >
+    <div class="mx-6 flex flex-col md:flex-row">
+      <div class="flex w-full flex-wrap flex-col md:flex-row items-center">
         <!--Left Col-->
         <div
           class="md:flex md:flex-col w-full md:w-1/2 md:justify-center md:items-start text-white text-center md:text-left"
