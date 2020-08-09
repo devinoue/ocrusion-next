@@ -6,7 +6,7 @@
     <div
       class="w-full max-w-6 mr-4 mx-auto flex py-0 justify-between items-center"
     >
-      <a class="mx-6 md:mx-0" href="#">
+      <nuxt-link class="mx-6 md:mx-0" to="/">
         <h1>
           <img
             src="~/static/logo.png"
@@ -15,7 +15,7 @@
             :class="imgFilterClass"
           />
         </h1>
-      </a>
+      </nuxt-link>
       <div class="block lg:hidden z-50">
         <button
           class="flex items-center p-2 rounded appearance-none focus:outline-none"
