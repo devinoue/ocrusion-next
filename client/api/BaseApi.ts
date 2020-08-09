@@ -4,7 +4,7 @@ import { useContext } from 'nuxt-composition-api'
 export default class BaseApi {
   protected static baseURL: string =
     process.env.NODE_ENV === 'production'
-      ? 'http://13.230.137.249:8080/'
+      ? 'php :8080/'
       : 'http://localhost:8080'
 
   static getHeaders() {
