@@ -1,17 +1,10 @@
 <template>
   <div>
-    <nav
-      class="transition duration-1000 ease-in-out z-50 max-w-6xl mx-auto"
-      :class="headerClass"
-    >
-      <TheHeader :is-top="true" />
-    </nav>
+    <div class="w-screen fixed top-0 z-50">
+      <TheHeader :is-top="true" class="max-w-6xl mx-auto" />
+    </div>
 
-    <transition name="anime">
-      <keep-alive>
-        <nuxt />
-      </keep-alive>
-    </transition>
+    <nuxt />
   </div>
 </template>
 
@@ -22,7 +15,6 @@ export default {
     const scrollY = ref(0)
     const calculateScrollY = () => {
       scrollY.value = window.scrollY
-      console.log(scrollY.value)
     }
     onMounted(() => {
       window.addEventListener('scroll', calculateScrollY)
@@ -31,9 +23,16 @@ export default {
     const headerClass = computed(() => {
       // console.log(scrollY.value)
       return
-      return scrollY.value > 900
-        ? ['sticky', 'top-0', 'bg-white', 'pb-0', 'w-full', 'pt-6']
-        : ['max-w-6xl', 'mx-auto']
+      return scrollY.value > 0
+        ? [
+            'sticky',
+            'sticky-class',
+            'bg-white',
+            'pb-0',
+            'w-full',
+            'rounded-full',
+          ]
+        : ['max-w-6xl', 'mx-auto', 'm-t']
     })
     return { headerClass }
   },
@@ -41,6 +40,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.centering {
+  left: 50%;
+  transform: translate(-50%, 0);
+}
 .anime-enter-active {
   transition: opacity 0.5s ease-out;
 }

@@ -1,26 +1,33 @@
 <template>
   <footer class="flex justify-center px-4 text-gray-100 bg-gray-800">
     <div class="container py-6">
-      <h1 class="text-center text-lg font-bold lg:text-2xl">
-        紙の本を、すべてデジタル化しませんか？<br />
-        今すぐ簡単にはじめられます。
-      </h1>
-
-      <hr class="h-px mt-6 bg-gray-700 border-none" />
-
       <div class="flex flex-col items-center justify-between mt-6 md:flex-row">
         <div>
           <a href="#" class="text-xl font-bold">
             <img
               src="~/static/white-logo.png"
-              class="white-logo"
+              class="white-logo w-1/2 md:w-1/3"
               alt="white logo"
             />
           </a>
         </div>
         <div class="flex mt-4 md:m-0">
-          <div class="-mx-4">
-            <a href="#" class="px-4 text-sm">Contact</a>
+          <div class="mx-4">
+            <nuxt-link to="/policies/tos" class="px-4 text-sm truncate"
+              >利用規約</nuxt-link
+            >
+          </div>
+          <div class="mx-4">
+            <nuxt-link to="/policies/privacy" class="px-4 text-sm truncate"
+              >プライバシーポリシー</nuxt-link
+            >
+          </div>
+          <div class="mx-4">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLScucDvr1yBURD9l8SHIttG8jEaYPaDhb4z0LVxlwYy2ZtJQWw/viewform"
+              class="px-4 text-sm truncate"
+              >Contact</a
+            >
           </div>
         </div>
       </div>
@@ -39,7 +46,6 @@ export default {
 <style lang="scss" scoped>
 .white-logo {
   box-sizing: border-box;
-  width: 50%;
 }
 .footer-li {
   &::before {

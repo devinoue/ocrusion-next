@@ -47,7 +47,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .pricing-text {
-  font-family: 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ＭＳ Ｐゴシック',
-    sans-serif;
+  // font-family: 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ＭＳ Ｐゴシック',
+  //   sans-serif;
 }
 </style>

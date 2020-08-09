@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pt-48">
     <div v-if="isRegistered" class="simple-message text-center">
       <h1 class="title">ご登録ありかどうございました。</h1>
       <p>登録が完了いたしましたので、 こちらからログインをお願いします。</p>

@@ -22,20 +22,20 @@
       </p>
     </div>
     <div class="flex flex-wrap mt-3 px-6">
-      <ul>
-        <li class="flex items-center">
+      <ul class="w-full">
+        <li class="flex items-center border-b">
           <div class="rounded-full p-2 fill-current text-green-700">
             <IconCheckOk />
           </div>
           <span class="text-gray-700 text-lg ml-3">{{ subDes[0] }}</span>
         </li>
-        <li class="flex items-center">
+        <li class="flex items-center border-b">
           <div class="rounded-full p-2 fill-current text-green-700">
             <IconCheckOk />
           </div>
           <span class="text-gray-700 text-lg ml-3">{{ subDes[1] }}</span>
         </li>
-        <li class="flex items-center">
+        <li class="flex items-center border-b">
           <div class="rounded-full p-2 fill-current text-green-700">
             <IconCheckOk />
           </div>
@@ -46,7 +46,12 @@
       </ul>
     </div>
     <div class="block flex items-center p-8 justify-center">
-      <AppPlanButton label="新規登録する" />
+      <nuxt-link
+        to="/auth/register"
+        class="mx-auto lg:mx-0 bg-white font-semibold rounded-full my-6 py-4 px-8 shadow-lg btn"
+      >
+        新規登録する
+      </nuxt-link>
     </div>
   </div>
 </template>
@@ -84,5 +89,43 @@ export default {
 <style lang="scss" scoped>
 .gradient {
   background-image: linear-gradient(19deg, #ff5858 0%, #f857a6 100%);
+}
+.btn {
+  cursor: pointer;
+  transition: 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-property: opacity, color;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  color: #1a1a1a;
+  text-align: center;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  max-width: 230px;
+
+  &::before {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: -101%;
+    width: 100%;
+    height: 100%;
+    background-color: #041431fb;
+    opacity: 0.2;
+    content: '';
+    -webkit-transition: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  &:hover {
+    color: white;
+    &::before {
+      left: 0;
+      opacity: 1;
+    }
+  }
 }
 </style>

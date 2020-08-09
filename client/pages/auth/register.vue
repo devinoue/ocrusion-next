@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pt-48">
     <RegisterForm @onRegisterButtonPushed="onRegisterButtonPushed" />
   </div>
 </template>
@@ -23,10 +23,6 @@ export default {
         const res = await registerApi.post(data)
         console.log(res)
         changeLoaded()
-        root.$router.push({
-          path: '/auth/login',
-          query: { message: 'thanks' },
-        })
       } catch (e) {
         if (e.message.includes(422)) {
           alert(
@@ -37,6 +33,33 @@ export default {
         console.log(e.message)
         console.log(e.reponse)
         changeFailure()
+      }
+
+      try {
+        changeLoading()
+        const loginData = {
+          grant_type: 'password',
+          client_id: process.env.CLIENT_ID,
+          client_secret: process.env.CLIENT_SECRET,
+          username: data.email,
+          password: data.password,
+          remember: false,
+        }
+        const res = await root.$store.dispatch('Auth/fetchUser', loginData)
+        console.log(res)
+        root.$store.dispatch('Auth/saveToken', {
+          token: res.data.access_token,
+          remember: false,
+        })
+        changeLoaded()
+        // Fetch the user.
+        await root.$store.dispatch('Auth/fetchUserName')
+        console.log(root.$store.getters['Auth/user'].id)
+        root.$router.push('/members/dashboard/1')
+      } catch (e) {
+        changeFailure()
+        console.log(e)
+        console.log(e.response)
       }
     }
 

@@ -55,19 +55,20 @@
           />
         </div>
       </div>
-
+      <UploadGuide />
       <div class="mt-2">
         <label class="inline-block text-sm text-gray-600" for="up_confirm">
-          注意事項を了承する
+          以上の注意事項を了承する
         </label>
         <input
           id="up_confirm"
           v-model="isConfirm"
-          class="px-5 py-1 text-gray-700 bg-gray-200 rounded"
+          class="px-5 py-1 text-gray-700 bg-gray-200 rounded form-checkbox focus:outline-none focus:shadow-outline"
           type="checkbox"
           required
         />
       </div>
+
       <div class="mt-4">
         <AppLoadingButton
           initial-label="アップロードする"

@@ -3,8 +3,8 @@
     <div
       class="w-full mx-auto max-w-2xl m-4 p-10 text-gray-700 bg-white rounded shadow-xl"
     >
-      <p class="text-gray-800 font-medium">新規登録</p>
-      <div class="">
+      <!-- <p class="text-gray-800 font-medium">新規登録</p> -->
+      <div class="pt-4">
         <label class="block text-sm text-gray-600">
           メールアドレス
         </label>

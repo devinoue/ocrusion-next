@@ -1,7 +1,6 @@
 <template>
   <div class="hidden lg:block">
     <ul class="inline-flex items-center">
-      <li><nuxt-link class="px-4 menu-link" to="/">トップ</nuxt-link></li>
       <li>
         <nuxt-link class="px-4 menu-link" to="/members/dashboard/1"
           >一覧</nuxt-link

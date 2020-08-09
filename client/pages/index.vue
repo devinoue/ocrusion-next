@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="gradient">
+    <div class="image-back">
       <div class="gradient-back">
         <SiteHero2 />
         <SiteSeparator />
@@ -30,6 +30,7 @@
       class="text-center"
     />
     <SiteFaq />
+    <SiteMessage />
     <SiteFooter />
   </div>
 </template>
@@ -41,40 +42,14 @@
  */
 
 import { ref, SetupContext } from '@vue/composition-api'
-import axios from 'axios'
 export default {
-  name: 'Login',
+  name: 'Index',
   head: {
     title: '自炊をOCRする高性能AIをお求めなら',
   },
   layout: 'default',
   setup(_props: {}, { root }: SetupContext) {
-    const list2 = ref([])
-    console.log(root.$store.getters['Auth/token'])
-    root.$store.commit('Auth/SET_TOKEN', 'fffhffff')
-    console.log(root.$store.getters['Auth/token'])
-    const status = ref('UNINITIALIZED')
-    const error = ref(null)
-    const onClick = async () => {
-      axios
-        .get(
-          'http://localhost:8080/api/capacities/3OfY3rPywDtU749NjsuynhiyOS9mjbRZPw4i'
-        )
-        .then((res) => {
-          console.log(res.data.message)
-        })
-        .catch((e) => {
-          console.log(e)
-          console.log(e.response)
-        })
-    }
-
-    return {
-      list2,
-      error,
-      status,
-      onClick,
-    }
+    return {}
   },
 }
 </script>
@@ -96,20 +71,45 @@ export default {
   background-color: #f5f7fa;
   background-color: rgba(245, 247, 250, 1);
 }
-.gradient {
+.image-back {
+  position: relative;
   background-image: url(../static/back1.jpg);
   background-size: cover;
   background-position: center;
   background-color: rgba(46, 46, 46, 0.726);
   background-blend-mode: darken;
+  z-index: 0;
+
+  &::before {
+    content: '';
+    background: inherit;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    position: absolute;
+    top: -5px;
+    bottom: 10px;
+    left: -5px;
+    right: -5px;
+    filter: blur(4px);
+    z-index: -4;
+  }
+}
+.mode-blur {
+  &::before {
+    content: '';
+    filter: blur(32px);
+  }
 }
 .gradient-back {
+  bottom: -2px;
   background: linear-gradient(
     137deg,
     #81d3e11f,
     #00b7d75b 12%,
     rgba(45, 140, 236, 0.568) 30%,
-    #5860ff1c 47%,
+    #5860ff67 47%,
     rgba(105, 95, 244, 0.322) 58%,
     #ae5bcb
   );

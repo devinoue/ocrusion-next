@@ -1,9 +1,11 @@
 <template>
-  <section class="max-w-6xl mx-auto py-24 px-6">
-    <div class="max-w-full md:max-w-6xl mx-auto my-3 md:px-8 text-center">
-      <div class="">紙の本を、すべてデジタル化しませんか？</div>
-      <div class="">今すぐ簡単に始められます</div>
-      <button></button>
+  <section class="flex justify-center px-4 text-gray-100 bg-gray-800">
+    <div class="container py-6">
+      <h1 class="text-center text-lg lg:text-2xl">
+        紙の本を、すべてデジタル化しませんか？<br />
+        今すぐ簡単にはじめられます。
+      </h1>
+      <hr class="h-px mt-6 bg-gray-700 border-none" />
     </div>
   </section>
 </template>

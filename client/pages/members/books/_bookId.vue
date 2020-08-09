@@ -6,8 +6,15 @@
       comment=""
     />
     <div class="my-6">
-      <AppBookLeading :title="bookName" :sub-title="''" class="text-center" />
+      <AppBookLeading :title="''" :sub-title="bookName" class="text-center" />
     </div>
+    <nuxt-link
+      class="pl-6 font-semibold"
+      to
+      onclick="javascript:window.history.back(-1);return false;"
+    >
+      « ダッシュボードへ戻る
+    </nuxt-link>
     <section
       v-if="mode === 'display' && request.state !== RequestState.LOADING"
       class="w-full mx-auto m-4 p-10 text-gray-700 bg-white rounded shadow-xl"

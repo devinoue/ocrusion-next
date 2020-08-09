@@ -18,19 +18,19 @@
 
       <div class="flex flex-wrap mt-3 px-6">
         <ul>
-          <li class="flex items-center">
+          <li class="flex items-center border-b">
             <div class="rounded-full p-2 fill-current text-green-700">
               <IconCheckOk />
             </div>
             <span class="text-gray-700 text-lg ml-3">{{ subDes[0] }}</span>
           </li>
-          <li class="flex items-center">
+          <li class="flex items-center border-b">
             <div class="rounded-full p-2 fill-current text-green-700">
               <IconCheckOk />
             </div>
             <span class="text-gray-700 text-lg ml-3">{{ subDes[1] }}</span>
           </li>
-          <li class="flex items-center">
+          <li class="flex items-center border-b">
             <div class="rounded-full p-2 fill-current text-green-700">
               <IconCheckOk />
             </div>
