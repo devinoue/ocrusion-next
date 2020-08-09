@@ -28,7 +28,8 @@
         </div>
         <!--Right Col-->
         <div class="md:w-1/2 z-50">
-          <img class="img" src="hero.svg" />
+          <SiteHeroImage class="img" />
+          <!-- <img class="img" src="hero.svg" />-->
         </div>
       </div>
     </div>
