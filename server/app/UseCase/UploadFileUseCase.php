@@ -94,6 +94,8 @@ class UploadFileUseCase
 
         $userLevelRepository->save($userLevel);
 
+        $batch = app()->make('App\Http\Controllers\BatchController');
+        $batch->__invoke();
 
         return ['success' => $originalZip->value()];
     }

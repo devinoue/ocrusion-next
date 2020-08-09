@@ -1,11 +1,28 @@
 <template>
   <div>
     <AppLeading :title="'BOOKS'" :sub-title="'本一覧'" class="text-center" />
+
     <BookList
       v-if="bookList.length !== 0"
       :book-list="bookList"
       @onActionButtonClicked="onActionButtonClicked"
     />
+    <div v-if="bookList.length === 0 && hadNoBooks" class="pt-24 text-center">
+      <h2 class="text-xl font-semibold">❌データがありません</h2>
+      <span class="inline-block pt-3"
+        ><nuxt-link to="/members/upload" class="link-text font-semibold"
+          >アップロード画面</nuxt-link
+        >から、ファイルのアップロードを開始してください。</span
+      >
+    </div>
+    <div v-if="isFullDeleted" class="pt-24 text-center">
+      <h2 class="text-xl font-semibold">無事処理できました。</h2>
+      <span class="inline-block pt-3"
+        ><nuxt-link to="/members/dashboard/1" class="link-text font-semibold"
+          >一覧画面</nuxt-link
+        >にお戻りください。</span
+      >
+    </div>
     <div class="text-center">
       <PaginationCircle v-if="bookList.length !== 0" :book-data="bookData" />
     </div>
@@ -32,14 +49,18 @@ export default {
     console.log(root.$store.getters['Auth/token'])
     const bookList = ref([])
     const bookData = ref<any>({})
+    const hadNoBooks = ref(false)
+    const isFullDeleted = ref(false)
     const { changeLoaded, changeLoading, changeFailure, request } = useLoading()
     onMounted(async () => {
+      // changeUninitialized()
       try {
         changeLoading()
         const res = await axios.get(`/api/user/${userId}?page=${page}`)
         console.log(res)
         bookData.value = res.data
         bookList.value = res.data.data ?? []
+        if (bookList.value.length === 0) hadNoBooks.value = true
         changeLoaded()
       } catch (e) {
         if (e.response) {
@@ -58,7 +79,8 @@ export default {
       try {
         changeLoading()
         const params = { bookIds: JSON.stringify(ids) }
-        const res = await axios.post(`http://localhost:8080/api/book`, params)
+        await axios.post(`/api/book`, params)
+
         changeLoaded()
       } catch (e) {
         console.log(e)
@@ -72,6 +94,10 @@ export default {
         ({ book_id }: IBookList) => !ids.includes(book_id)
       )
       bookList.value = rest
+      if (bookList.value.length === 0) {
+        isFullDeleted.value = true
+        root.$router.push('/members/dashboard/#')
+      }
     }
 
     return {
@@ -79,9 +105,31 @@ export default {
       bookList,
       onActionButtonClicked,
       request,
+      hadNoBooks,
+      isFullDeleted,
       RequestState,
     }
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.link-text {
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 44;
+  display: inline-block;
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 0.625rem;
+    background-color: #f0eb47;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+  }
+}
+</style>

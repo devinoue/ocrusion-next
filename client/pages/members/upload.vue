@@ -9,9 +9,10 @@
     <UploadCapacity :capacity="capacity" class="text-center" />
     <UploadForm @uploadParams="uploadParams" />
 
+    <!-- 
     <button large @click.stop="batch()">
       バッチ実行
-    </button>
+    </button> -->
   </div>
 </template>
 
@@ -29,7 +30,6 @@ export default {
   },
   setup(_props: {}, { root }: SetupContext) {
     const userId = root.$store.getters['Auth/user'].id
-    // const userId = '1222333322233'
     const { changeLoaded, changeLoading, changeFailure, request } = useLoading()
     const capacity = ref(0)
     onMounted(async () => {
@@ -61,6 +61,7 @@ export default {
         })
         console.log(res)
         changeLoaded()
+        root.$router.push('/members/dashboard')
       } catch (e) {
         // e.responseが空ならおそらく起動していない
         console.log(e.response)

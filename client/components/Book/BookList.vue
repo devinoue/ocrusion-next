@@ -83,7 +83,10 @@
             </span>
           </td>
           <td class="border-dashed border-t border-gray-200 p-3">
-            <p class="text-gray-700">{{ book.description }}</p>
+            <p class="text-gray-700">
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <div v-html="formatText(book.description)"></div>
+            </p>
             <span class="updatedat">
               Updated at {{ displayDate(book.updated_at) }}
             </span>
@@ -99,14 +102,14 @@
   </div>
 </template>
 <script lang="ts">
+import sanitizeHTML from 'sanitize-html'
 import {
   ref,
   defineComponent,
   PropType,
   SetupContext,
-  useContext,
 } from 'nuxt-composition-api'
-import axios from 'axios'
+
 import { IBookList } from '~/types'
 import BookListActionButton from '~/components/Book/BookListActionButton.vue'
 export default defineComponent({
@@ -127,6 +130,11 @@ export default defineComponent({
     const displayDate = (value: string) => {
       return new Date(value).toLocaleString()
     }
+        const formatText = (description: string) => {
+      return sanitizeHTML(description.replace(/\n/g, '<br />\n'), {
+        allowedTags: ['br'],
+      })
+    }
     const toggleBooksCheck = () => {
       if (flagCheckToggle.value) {
         flagCheckToggle.value = false
@@ -139,7 +147,6 @@ export default defineComponent({
         })
       }
     }
-    const nuxtCtx = useContext()
 
     const onActionButtonClicked = async (action: string) => {
       // delete
@@ -149,6 +156,7 @@ export default defineComponent({
     }
     return {
       onActionButtonClicked,
+      formatText,
       displayState,
       displayDate,
       selectedBookIds,
