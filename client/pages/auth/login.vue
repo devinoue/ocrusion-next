@@ -20,13 +20,9 @@ export default {
   },
   setup(_props: {}, { root }: SetupContext) {
     const { changeLoaded, changeLoading, changeFailure } = useLoading()
-    console.log(root.$route)
     const isRegistered = ref(!!root.$route.query?.message)
 
     const onLoginButtonPushed = async (forms: any) => {
-      // const f = await new LoginApi().post()
-      // console.log(f)
-      // return
       const data = {
         grant_type: 'password',
         client_id: process.env.CLIENT_ID,
@@ -39,7 +35,6 @@ export default {
       try {
         changeLoading()
         const res = await root.$store.dispatch('Auth/fetchUser', data)
-        console.log(res)
         root.$store.dispatch('Auth/saveToken', {
           token: res.data.access_token,
           remember: forms.remember,
@@ -49,12 +44,10 @@ export default {
 
         // Fetch the user.
         await root.$store.dispatch('Auth/fetchUserName')
-        console.log(root.$store.getters['Auth/user'].id)
         root.$router.push('/members/dashboard/1')
       } catch (e) {
         changeFailure()
-        console.log(e)
-        console.log(e.response)
+        alert(`${e.message}`)
       }
     }
 

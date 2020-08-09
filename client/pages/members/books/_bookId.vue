@@ -74,13 +74,13 @@ export default {
       try {
         changeLoading()
         const result = await axios.get(`/api/book/${bookId}`)
-        console.log(result)
+
         ocrTexts.value = result.data.ocrTexts
         bookDetails.value = result.data.imageDirs
         changeLoaded()
       } catch (e) {
         changeFailure()
-        console.log(e)
+        alert(`${e.message}`)
         if (e.response) {
           alert(`${e.message}`)
         } else if (e.message.includes('Network')) {
@@ -88,7 +88,7 @@ export default {
             'ネットワーク障害が発生しています。しばらくしてからアクセスしてください。'
           )
         } else {
-          console.log(e)
+          alert(`${e.message}`)
         }
       }
     })

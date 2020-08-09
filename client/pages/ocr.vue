@@ -17,9 +17,8 @@ export default {
       try {
         const baseApi = axios.create({ baseURL: 'http://localhost:8080' })
         const res = await baseApi.post(url, params)
-        console.log(res)
       } catch (e) {
-        console.log(e.response)
+        // console.log(e.response)
       }
     }
     return {

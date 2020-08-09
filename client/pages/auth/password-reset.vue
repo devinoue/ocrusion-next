@@ -2,7 +2,7 @@
   <div class="pt-48">
     <section>
       <div
-        class="w-full mx-auto max-w-2xl m-4 p-10 p-8 text-gray-700 bg-white rounded shadow-xl"
+        class="w-full mx-auto max-w-2xl m-4 p-8 text-gray-700 bg-white rounded shadow-xl"
       >
         {{ message }}
         <div class="pt-4">
@@ -37,20 +37,18 @@ export default {
   name: '',
   layout: 'default',
   setup() {
-    const email = ref('pasteur1822@gmail.com')
+    const email = ref('')
     const message = ref('')
     const onPushed = async () => {
       const data = {
         email: email.value,
       }
       try {
-        await axios.post('http://localhost:8080/password/email', data)
+        await axios.post('http://13.230.137.249:8080/password/email', data)
         message.value = '送信しました。メールボックスをご確認ください。'
         email.value = ''
       } catch (e) {
-        console.log(e)
-        console.log(e.message)
-        console.log(e.reponse)
+        alert(`${e.message}`)
       }
     }
     return {

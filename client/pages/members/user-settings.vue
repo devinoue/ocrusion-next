@@ -20,7 +20,7 @@ export default {
         const userSettings = new UserSettings()
         const res = userSettings.post(data)
       } catch (e) {
-        console.log(e.reponse)
+        alert(`${e.message}`)
       }
     }
     return {

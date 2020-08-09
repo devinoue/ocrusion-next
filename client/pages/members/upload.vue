@@ -37,34 +37,32 @@ export default {
         const res2 = await axios.get(`/api/capacities/${userId}`)
         capacity.value = res2.data.capacity
       } catch (e) {
-        console.log(e.response)
+        alert(`${e.message}`)
       }
     })
     const batch = async () => {
       const url = `/api/batch`
       try {
-        const res = await axios.get(url)
-        console.log(res)
+        await axios.get(url)
       } catch (e) {
-        console.log(e.response)
+        alert(`${e.message}`)
       }
     }
 
     const uploadParams = async (params: any) => {
       changeLoading()
       const url = `/api/files/${userId}`
-      console.log(url)
+
       const headers = { 'content-type': `multipart/form-data` }
       try {
-        const res = await axios.post(url, params, {
+        await axios.post(url, params, {
           headers,
         })
-        console.log(res)
         changeLoaded()
         root.$router.push('/members/dashboard')
       } catch (e) {
         // e.responseが空ならおそらく起動していない
-        console.log(e.response)
+        alert(`${e.message}`)
         changeFailure()
       }
     }

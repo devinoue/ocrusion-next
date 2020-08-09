@@ -20,16 +20,7 @@ export default {
   name: '',
   setup() {
     const bookIds = ref([])
-    const onActionButtonClicked = async () => {
-      // try {
-      //   const params = { bookIds: JSON.stringify(bookIds) }
-      //   const res = await axios.post(`http://localhost:8080/api/book`, params)
-      //   console.log(res.data)
-      // } catch (e) {
-      //   console.log(e)
-      //   console.log(e.response)
-      // }
-    }
+    const onActionButtonClicked = async () => {}
 
     return { onActionButtonClicked, bookIds }
   },

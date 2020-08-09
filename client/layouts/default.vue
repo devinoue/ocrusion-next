@@ -20,20 +20,7 @@ export default {
       window.addEventListener('scroll', calculateScrollY)
     })
 
-    const headerClass = computed(() => {
-      // console.log(scrollY.value)
-      return
-      return scrollY.value > 0
-        ? [
-            'sticky',
-            'sticky-class',
-            'bg-white',
-            'pb-0',
-            'w-full',
-            'rounded-full',
-          ]
-        : ['max-w-6xl', 'mx-auto', 'm-t']
-    })
+    const headerClass = computed(() => {})
     return { headerClass }
   },
 }

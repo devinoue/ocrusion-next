@@ -56,10 +56,8 @@ export const actions: ActionTree<RootState, RootState> = {
     try {
       const { data } = await axios('/api/user')
 
-      console.log(data)
       commit('FETCH_USER_SUCCESS', data)
     } catch (e) {
-      console.log(e.response)
       Cookies.remove('token')
 
       commit('FETCH_USER_FAILURE')
@@ -71,7 +69,7 @@ export const actions: ActionTree<RootState, RootState> = {
       const logoutApi = new LogoutApi()
       await logoutApi.post()
     } catch (e) {
-      console.log(e.response)
+      //
     }
 
     Cookies.remove('token')

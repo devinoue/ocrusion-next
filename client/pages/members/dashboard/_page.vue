@@ -46,7 +46,7 @@ export default {
   setup(_props: {}, { root }: SetupContext) {
     const page = root.$route.params?.page ?? 1
     const userId = root.$store.getters['Auth/user'].id
-    console.log(root.$store.getters['Auth/token'])
+
     const bookList = ref([])
     const bookData = ref<any>({})
     const hadNoBooks = ref(false)
@@ -57,7 +57,7 @@ export default {
       try {
         changeLoading()
         const res = await axios.get(`/api/user/${userId}?page=${page}`)
-        console.log(res)
+
         bookData.value = res.data
         bookList.value = res.data.data ?? []
         if (bookList.value.length === 0) hadNoBooks.value = true
@@ -70,7 +70,7 @@ export default {
             'ネットワーク障害が発生しています。しばらくしてからアクセスしてください。'
           )
         } else {
-          console.log(e)
+          alert(`${e.message}`)
         }
       }
     })
@@ -83,8 +83,7 @@ export default {
 
         changeLoaded()
       } catch (e) {
-        console.log(e)
-        console.log(e.response)
+        alert(`${e.message}`)
         changeFailure()
         return
       }

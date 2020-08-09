@@ -50,10 +50,8 @@ export default {
         if (res.data?.message ?? null) {
           alert('正常に終了しました')
         }
-        // 見た目の削除処理
       } catch (e) {
-        console.log(e)
-        console.log(e.response)
+        alert(`${e.message}`)
       }
     }
     const changeRows = (value: string) => {
@@ -75,10 +73,8 @@ export default {
         if (res.data?.message ?? null) {
           alert('正常に終了しました')
         }
-        console.log(res.data)
       } catch (e) {
-        console.log(e)
-        console.log(e.response)
+        alert(`${e.message}`)
       }
     }
     return { onDeleteOcrTextClicked, onEditButtonClicked, changeRows }

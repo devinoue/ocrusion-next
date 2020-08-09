@@ -5,7 +5,6 @@
 </template>
 <script lang="ts">
 import { SetupContext } from '@vue/composition-api'
-import axios from 'axios'
 import useLoading from '~/composables/use-loading'
 import { RegisterApi } from '~/api/RegisterApi'
 
@@ -20,8 +19,7 @@ export default {
       const registerApi = new RegisterApi()
       try {
         changeLoading()
-        const res = await registerApi.post(data)
-        console.log(res)
+        await registerApi.post(data)
         changeLoaded()
       } catch (e) {
         if (e.message.includes(422)) {
@@ -29,9 +27,7 @@ export default {
             `同じメールアドレスが使われていますので違うメールアドレスを使用してください\n ${e.message}`
           )
         }
-        console.log(e)
-        console.log(e.message)
-        console.log(e.reponse)
+        alert(`${e.message}`)
         changeFailure()
       }
 
@@ -46,7 +42,7 @@ export default {
           remember: false,
         }
         const res = await root.$store.dispatch('Auth/fetchUser', loginData)
-        console.log(res)
+
         root.$store.dispatch('Auth/saveToken', {
           token: res.data.access_token,
           remember: false,
@@ -54,12 +50,11 @@ export default {
         changeLoaded()
         // Fetch the user.
         await root.$store.dispatch('Auth/fetchUserName')
-        console.log(root.$store.getters['Auth/user'].id)
+
         root.$router.push('/members/dashboard/1')
       } catch (e) {
         changeFailure()
-        console.log(e)
-        console.log(e.response)
+        alert(`${e.message}`)
       }
     }
 

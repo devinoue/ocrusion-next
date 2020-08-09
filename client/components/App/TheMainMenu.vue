@@ -89,9 +89,7 @@ export default defineComponent({
     })
 
     const logout = async () => {
-      console.log('kitef')
       await root.$store.dispatch('Auth/logout')
-      console.log('kite')
       root.$router.push({ path: '/auth/login' })
     }
 

@@ -41,14 +41,14 @@
 
  */
 
-import { ref, SetupContext } from '@vue/composition-api'
+import { SetupContext } from '@vue/composition-api'
 export default {
   name: 'Index',
   head: {
     title: '自炊をOCRする高性能AIをお求めなら',
   },
   layout: 'default',
-  setup(_props: {}, { root }: SetupContext) {
+  setup(_props: {}, _ctx: SetupContext) {
     return {}
   },
 }
