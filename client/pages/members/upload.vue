@@ -30,9 +30,16 @@ export default {
   },
   setup(_props: {}, { root }: SetupContext) {
     const userId = root.$store.getters['Auth/user'].id
-    const { changeLoaded, changeLoading, changeFailure, request } = useLoading()
+    const {
+      changeLoaded,
+      changeLoading,
+      changeFailure,
+      request,
+      changeUninitialized,
+    } = useLoading()
     const capacity = ref(0)
     onMounted(async () => {
+      changeUninitialized()
       try {
         const res2 = await axios.get(`/api/capacities/${userId}`)
         capacity.value = res2.data.capacity

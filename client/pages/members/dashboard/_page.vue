@@ -51,9 +51,15 @@ export default {
     const bookData = ref<any>({})
     const hadNoBooks = ref(false)
     const isFullDeleted = ref(false)
-    const { changeLoaded, changeLoading, changeFailure, request } = useLoading()
+    const {
+      changeLoaded,
+      changeLoading,
+      changeFailure,
+      request,
+      changeUninitialized,
+    } = useLoading()
     onMounted(async () => {
-      // changeUninitialized()
+      changeUninitialized()
       try {
         changeLoading()
         const res = await axios.get(`/api/user/${userId}?page=${page}`)

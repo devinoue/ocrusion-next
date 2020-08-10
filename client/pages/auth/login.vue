@@ -8,7 +8,7 @@
   </div>
 </template>
 <script lang="ts">
-import { SetupContext, ref } from '@vue/composition-api'
+import { SetupContext, ref, onMounted } from '@vue/composition-api'
 
 import { LoginApi } from '../../api/LoginApi'
 import useLoading from '~/composables/use-loading'
@@ -19,8 +19,17 @@ export default {
     title: 'ログイン',
   },
   setup(_props: {}, { root }: SetupContext) {
-    const { changeLoaded, changeLoading, changeFailure } = useLoading()
+    const {
+      changeLoaded,
+      changeLoading,
+      changeFailure,
+      changeUninitialized,
+    } = useLoading()
     const isRegistered = ref(!!root.$route.query?.message)
+
+    onMounted(() => {
+      changeUninitialized()
+    })
 
     const onLoginButtonPushed = async (forms: any) => {
       const data = {

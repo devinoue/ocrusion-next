@@ -45,7 +45,13 @@ export default {
   layout: 'member',
   setup(_props: {}, ctx: SetupContext) {
     const userId = ctx.root.$store.getters['Auth/user'].id
-    const { changeLoaded, changeLoading, changeFailure, request } = useLoading()
+    const {
+      changeLoaded,
+      changeLoading,
+      changeFailure,
+      request,
+      changeUninitialized,
+    } = useLoading()
     const bookId = ctx.root.$route.params?.bookId ?? null
     const mode = ref<'edit' | 'display'>('display')
     if (bookId === null) {
@@ -71,6 +77,7 @@ export default {
         : ''
     })
     onMounted(async () => {
+      changeUninitialized()
       try {
         changeLoading()
         const result = await axios.get(`/api/book/${bookId}`)

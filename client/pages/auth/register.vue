@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts">
-import { SetupContext } from '@vue/composition-api'
+import { SetupContext, onMounted } from '@vue/composition-api'
 import useLoading from '~/composables/use-loading'
 import { RegisterApi } from '~/api/RegisterApi'
 
@@ -14,7 +14,16 @@ export default {
     title: '新規登録',
   },
   setup(_props: {}, { root }: SetupContext) {
-    const { changeLoaded, changeLoading, changeFailure } = useLoading()
+    const {
+      changeLoaded,
+      changeLoading,
+      changeFailure,
+      changeUninitialized,
+    } = useLoading()
+
+    onMounted(() => {
+      changeUninitialized()
+    })
     const onRegisterButtonPushed = async (data: any) => {
       const registerApi = new RegisterApi()
       try {
