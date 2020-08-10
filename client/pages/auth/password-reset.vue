@@ -44,7 +44,7 @@ export default {
         email: email.value,
       }
       try {
-        await axios.post('http://13.230.137.249:8080/password/email', data)
+        await axios.post('https://www.jisui-ocr.net:8080/password/email', data)
         message.value = '送信しました。メールボックスをご確認ください。'
         email.value = ''
       } catch (e) {
