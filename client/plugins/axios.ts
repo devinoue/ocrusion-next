@@ -4,7 +4,7 @@ import { Context } from '@nuxt/types'
 export default ({ app, store }: Context) => {
   axios.defaults.baseURL = process.env.apiUrl =
     process.env.NODE_ENV === 'production'
-      ? 'http://13.230.137.249:8080/'
+      ? 'https://www.jisui-ocr.net:8080/'
       : 'http://localhost:8080'
   if (process.server) {
     return
