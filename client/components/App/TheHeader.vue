@@ -42,7 +42,7 @@
       />
       <TheMainMenu
         :is-member="!isTop"
-        :is-over-scroll-limit="scrollY >= 900"
+        :is-over-scroll-limit="scrollY >= 500"
         class="hidden lg:block"
       />
     </div>
@@ -70,7 +70,7 @@ export default {
     })
 
     const imgFilterClass = computed(() => {
-      return root.$route.path === '/' && scrollY.value < 900
+      return root.$route.path === '/' && scrollY.value < 500
         ? ['img-filter']
         : null
     })

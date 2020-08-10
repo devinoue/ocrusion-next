@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <ul
-      class="list-reset lg:flex justify-end flex-1 items-center items-center"
+      class="list-reset lg:flex justify-end flex-1 items-center"
       :class="topPageClass"
     >
       <li v-for="(path, index) in paths" :key="path.path + index">
