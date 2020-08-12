@@ -81,17 +81,10 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
     ['vue-scrollto/nuxt', { duration: 700 }],
-    '@nuxtjs/proxy',
   ],
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  proxy: {
-    '/': {
-      target: 'http://54.250.102.215:8080',
-      pathRewrite: {},
-    },
-  },
   build: {},
 }
