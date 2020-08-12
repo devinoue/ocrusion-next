@@ -15,4 +15,4 @@ jobs:
       run: |
         echo "$SECRET_KEY" > secret_key
         chmod 600 secret_key
-        ssh -o StrictHostKeyChecking=no ${LIGHTSAIL_USER}@${LIGHTSAIL_HOST} -i secret_key "cd /home/bitnami/ocrusion-next && git pull origin master && cd /home/bitnami/ocrusion-next/client && yarn generate"
+        ssh -o StrictHostKeyChecking=no ${LIGHTSAIL_USER}@${LIGHTSAIL_HOST} -i secret_key "cd /home/bitnami/ocrusion-next && git pull origin master && cd /home/bitnami/ocrusion-next/client && yarn && yarn generate"
