@@ -1,7 +1,7 @@
 export default class BaseApi {
   protected static baseURL: string =
     process.env.NODE_ENV === 'production'
-      ? 'https://www.jisui-ocr.net:8080'
+      ? 'http://54.250.102.215:8080'
       : 'http://localhost:8080'
 
   static getHeaders() {
