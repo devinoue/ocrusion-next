@@ -1,0 +1,18 @@
+name: Deploy to LIGHTSAIL
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: test
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        LIGHTSAIL_USER: ${{ secrets.LIGHTSAIL_USER }}
+        LIGHTSAIL_HOST: ${{ secrets.LIGHTSAIL_HOST }}
+      run: |
+        echo "$SECRET_KEY" > secret_key
+        chmod 600 secret_key
+        ssh -o StrictHostKeyChecking=no ${LIGHTSAIL_USER}@${LIGHTSAIL_HOST} -i secret_key "cd /home/bitnami/ocrusion-next && git pull origin master && cd /home/bitnami/ocrusion-next/client && yarn generate"
