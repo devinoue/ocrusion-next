@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Context } from '@nuxt/types'
 
 export default ({ app, store }: Context) => {
+  axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
   axios.defaults.baseURL = process.env.apiUrl =
     process.env.NODE_ENV === 'production'
       ? 'http://54.250.102.215:8080'
