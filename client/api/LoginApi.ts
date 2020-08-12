@@ -8,10 +8,6 @@ export class LoginApi extends BaseApi implements IApi {
     super()
 
     this.axios = axios
-    // this.axios = axios.create({
-    //   baseURL: BaseApi.baseURL,
-    //   headers: BaseApi.getHeaders(),
-    // })
   }
 
   post(data: IUserLoginData) {
