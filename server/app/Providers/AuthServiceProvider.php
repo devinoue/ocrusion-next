@@ -25,7 +25,12 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Passport::routes();
-        //
+        // Passport::routes();
+        $callback = null;
+        $options = [
+            'prefix' => 'server/oauth',
+            'namespace' => '\Laravel\Passport\Http\Controllers',
+        ];
+        Passport::routes($callback, $options);
     }
 }
