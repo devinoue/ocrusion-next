@@ -76,11 +76,16 @@ export default {
     })
     const headerClass = computed(() => {
       // return
-      return scrollY.value >= 900
+      return scrollY.value >= 400
         ? ['w-full', 'bg-gray-100', 'rounded-lg', 'shadow-lg']
         : null
     })
-    return { headerClass, imgFilterClass, scrollY, isHidden }
+    return {
+      headerClass,
+      imgFilterClass,
+      scrollY,
+      isHidden,
+    }
   },
 }
 </script>
