@@ -108,3 +108,5 @@ sw.*
 /server/yarn-error.log
 
 /docker/db
+
+.dump/*
