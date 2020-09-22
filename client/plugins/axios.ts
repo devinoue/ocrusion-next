@@ -5,8 +5,8 @@ export default ({ app, store }: Context) => {
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
   axios.defaults.baseURL = process.env.apiUrl =
     process.env.NODE_ENV === 'production'
-      ? 'http://54.250.102.215:8080'
-      : 'http://localhost:8080'
+      ? 'https://www.jisui-ocr.net/server'
+      : 'http://localhost/server'
   if (process.server) {
     return
   }
