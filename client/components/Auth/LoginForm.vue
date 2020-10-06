@@ -29,6 +29,7 @@
           aria-label="Password"
         />
       </div>
+      <!--
       <div class="mt-2">
         <label class="inline-block text-sm text-gray-600" for="remember">
           ログイン時のデータを覚えさせる
@@ -40,7 +41,7 @@
           type="checkbox"
           required
         />
-      </div>
+      </div> -->
 
       <div class="mt-4">
         <AppLoadingButton
@@ -59,8 +60,8 @@ export default {
   name: 'LoginForm',
   setup(_props: {}, { emit }: SetupContext) {
     const forms = reactive({
-      email: 'bb@ko.com',
-      password: 'hogehoge',
+      email: '',
+      password: '',
       remember: false,
     })
 

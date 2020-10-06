@@ -36,7 +36,7 @@
           v-model="passwordConfirmation"
           class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
           type="password"
-          placeholder="確認のためもう一度パスワードを入力してください"
+          placeholder="確認のためもう一度同じパスワードを入力してください"
           aria-label="Password_Confirmation"
         />
       </div>
@@ -58,9 +58,9 @@ export default {
   name: 'RegisterForm',
   setup(_props: {}, { emit }: SetupContext) {
     const forms = reactive({
-      email: 'bb@ko.com',
-      password: 'hogehoge',
-      passwordConfirmation: 'hogehoge',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
     })
 
     const completedCondition = computed(() => {
