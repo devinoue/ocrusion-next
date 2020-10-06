@@ -50,7 +50,6 @@
 </template>
 <script lang="ts">
 import { ref, onMounted, SetupContext, computed } from 'nuxt-composition-api'
-// import { ref } from 'nuxt-composition-api'
 export default {
   name: '',
   props: {
@@ -76,7 +75,7 @@ export default {
     })
     const headerClass = computed(() => {
       // return
-      return scrollY.value >= 400
+      return scrollY.value >= 500
         ? ['w-full', 'bg-gray-100', 'rounded-lg', 'shadow-lg']
         : null
     })

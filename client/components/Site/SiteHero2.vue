@@ -25,7 +25,7 @@
           </nuxt-link>
         </div>
         <!--Right Col-->
-        <div class="md:w-1/2 z-50">
+        <div class="w-3/4 md:w-1/2 z-50">
           <SiteHeroImage class="img" />
           <!-- <img class="img" src="hero.svg" />-->
         </div>

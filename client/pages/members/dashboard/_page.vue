@@ -1,6 +1,10 @@
 <template>
   <div>
-    <AppLeading :title="'BOOKS'" :sub-title="'本一覧'" class="text-center" />
+    <AppLeading
+      :title="'BOOKS'"
+      :sub-title="'本一覧'"
+      class="text-center mb-3"
+    />
 
     <BookList
       v-if="bookList.length !== 0"

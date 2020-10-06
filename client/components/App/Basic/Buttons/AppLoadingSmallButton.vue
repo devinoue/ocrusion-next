@@ -107,6 +107,8 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .gradient-button {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
   transition: 0.4s;
   // transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
   background-size: 180% auto;
