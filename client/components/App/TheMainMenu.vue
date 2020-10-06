@@ -33,12 +33,7 @@
   </div>
 </template>
 <script lang="ts">
-import {
-  ref,
-  SetupContext,
-  defineComponent,
-  computed,
-} from 'nuxt-composition-api'
+import { SetupContext, defineComponent, computed } from 'nuxt-composition-api'
 type Props = {
   isMember: boolean
   isOverScrollLimit: boolean
