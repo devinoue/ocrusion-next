@@ -35,13 +35,13 @@
       </div>
       <div class="mt-6">
         <label class="block text-sm text-gray-600">
-          <span class="hidden">確認のためもう一度パスワード</span>
+          <span class="hidden">もう一度同じパスワード(確認用)</span>
         </label>
         <input
           v-model="passwordConfirmation"
           class="w-full p-3 text-gray-700 bg-gray-200 rounded"
           type="password"
-          placeholder="確認のため、もう一度同じパスワードを入力してください"
+          placeholder="もう一度同じパスワード(確認用)"
           aria-label="Password_Confirmation"
         />
         <p
