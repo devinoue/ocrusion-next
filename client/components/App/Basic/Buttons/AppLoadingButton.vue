@@ -1,6 +1,6 @@
 <template>
   <button
-    class="gradient-button focus:outline-none focus:shadow-outline font-semibold px-6 py-2 text-white tracking-wider bg-gray-900 rounded w-full"
+    class="gradient-button focus:outline-none focus:shadow-outline font-semibold p-3 text-white tracking-wider bg-gray-900 rounded w-full"
     :class="statusClass"
     @click.stop="onClick"
   >

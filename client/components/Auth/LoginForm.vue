@@ -6,28 +6,34 @@
       <!-- <p class="text-gray-800 font-medium">ログイン</p> -->
       <div class="pt-4">
         <label class="block text-sm text-gray-600">
-          メールアドレス
+          <span class="hidden">メールアドレス</span>
         </label>
         <input
           v-model="email"
-          class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+          class="w-full p-3 text-gray-700 bg-gray-200 focus:outline-none focus:shadow-outline focus:border-blue-300 rounded"
           type="text"
           placeholder="メールアドレス"
           aria-label="Email"
         />
+        <p v-if="errorEmail" class="mt-2 text-red-400 error-text text-sm">
+          {{ errorEmail }}
+        </p>
       </div>
 
-      <div class="">
+      <div class="mt-6">
         <label class="block text-sm text-gray-600">
-          パスワード
+          <span class="hidden">パスワード</span>
         </label>
         <input
           v-model="password"
-          class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+          class="w-full p-3 text-gray-700 bg-gray-200 focus:outline-none focus:shadow-outline focus:border-blue-300 rounded"
           type="password"
           placeholder="パスワード"
           aria-label="Password"
         />
+        <p v-if="errorPassword" class="mt-2 text-red-400 error-text text-sm">
+          {{ errorPassword }}
+        </p>
       </div>
       <!--
       <div class="mt-2">
@@ -43,7 +49,7 @@
         />
       </div> -->
 
-      <div class="mt-4">
+      <div class="mt-6">
         <AppLoadingButton
           initial-label="ログイン"
           completed-label="無事ログインが完了しました"
@@ -64,8 +70,30 @@ export default {
       password: '',
       remember: false,
     })
+    const formsError = reactive({
+      errorEmail: '',
+      errorPassword: '',
+    })
 
     const completedCondition = computed(() => {
+      formsError.errorEmail = ''
+      formsError.errorPassword = ''
+      try {
+        if (forms.email && forms.email.match(/.+@.+\..+/) === null) {
+          formsError.errorEmail =
+            'Eメールアドレスのフォーマットに従って入力してください'
+          throw new Error(
+            'Eメールアドレスのフォーマットに従って入力してください'
+          )
+        }
+        if (forms.password && forms.password.length < 6) {
+          formsError.errorPassword = 'パスワードは6文字以上で登録してください。'
+          throw new Error('Form Error')
+        }
+      } catch (e) {
+        return false
+      }
+
       return !!forms.email && !!forms.password
     })
     const onLoginButtonPushed = () => {
@@ -79,10 +107,28 @@ export default {
 
     return {
       ...toRefs(forms),
+      ...toRefs(formsError),
       onLoginButtonPushed,
       completedCondition,
     }
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.error-text::before {
+  margin-top: -4px;
+  display: inline-block;
+  margin-right: 4px;
+  content: '!';
+  font-weight: 800;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  vertical-align: middle;
+  text-align: center;
+  border-radius: 50%;
+  background: #fc8181;
+  color: #fff;
+  font-size: 11px;
+}
+</style>

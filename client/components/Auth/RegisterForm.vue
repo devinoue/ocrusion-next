@@ -3,45 +3,56 @@
     <div
       class="w-full mx-auto max-w-2xl m-4 p-10 text-gray-700 bg-white rounded shadow-xl"
     >
-      <!-- <p class="text-gray-800 font-medium">新規登録</p> -->
       <div class="pt-4">
         <label class="block text-sm text-gray-600">
-          メールアドレス
+          <span class="hidden">メールアドレス</span>
         </label>
         <input
           v-model="email"
-          class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+          class="w-full p-3 text-gray-700 bg-gray-200 rounded"
           type="text"
           placeholder="メールアドレス"
           aria-label="Email"
         />
+        <p v-if="errorEmail" class="mt-2 text-red-400 error-text text-sm">
+          {{ errorEmail }}
+        </p>
       </div>
-      <div class="">
+      <div class="mt-6">
         <label class="block text-sm text-gray-600">
-          パスワード(6文字以上の半角英数字・記号)
+          <span class="hidden">パスワード(6文字以上の半角英数字・記号)</span>
         </label>
         <input
           v-model="password"
-          class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+          class="w-full p-3 text-gray-700 bg-gray-200 rounded"
           type="password"
           placeholder="パスワード"
           aria-label="Password"
         />
+        <p v-if="errorPassword" class="mt-2 text-red-400 error-text text-sm">
+          {{ errorPassword }}
+        </p>
       </div>
-      <div class="">
+      <div class="mt-6">
         <label class="block text-sm text-gray-600">
-          確認のためもう一度パスワード
+          <span class="hidden">確認のためもう一度パスワード</span>
         </label>
         <input
           v-model="passwordConfirmation"
-          class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+          class="w-full p-3 text-gray-700 bg-gray-200 rounded"
           type="password"
-          placeholder="確認のためもう一度同じパスワードを入力してください"
+          placeholder="確認のため、もう一度同じパスワードを入力してください"
           aria-label="Password_Confirmation"
         />
+        <p
+          v-if="errorPasswordConfirmation"
+          class="mt-2 text-red-400 error-text text-sm"
+        >
+          {{ errorPasswordConfirmation }}
+        </p>
       </div>
 
-      <div class="mt-4">
+      <div class="mt-6">
         <AppLoadingButton
           initial-label="新規登録"
           completed-label="新規登録が完了しました"
@@ -62,8 +73,37 @@ export default {
       password: '',
       passwordConfirmation: '',
     })
-
+    const formsError = reactive({
+      errorEmail: '',
+      errorPassword: '',
+      errorPasswordConfirmation: '',
+    })
     const completedCondition = computed(() => {
+      formsError.errorEmail = ''
+      formsError.errorPasswordConfirmation = ''
+      formsError.errorPassword = ''
+      try {
+        if (forms.email && forms.email.match(/.+@.+\..+/) === null) {
+          formsError.errorEmail = '正しいEメールアドレスを入力してください'
+          throw new Error('Form Error')
+        }
+        if (forms.password && forms.password.length < 6) {
+          formsError.errorPassword = 'パスワードは6文字以上で登録してください。'
+          throw new Error('Form Error')
+        }
+        if (
+          forms.password &&
+          forms.passwordConfirmation &&
+          forms.password !== forms.passwordConfirmation
+        ) {
+          formsError.errorPasswordConfirmation =
+            '異なるパスワードが入力されています'
+          throw new Error('Form Error')
+        }
+      } catch (e) {
+        return false
+      }
+
       return !!forms.email && !!forms.password && !!forms.passwordConfirmation
     })
     const onRegisterButtonPushed = () => {
@@ -71,10 +111,7 @@ export default {
         alert('パスワードが異なります。同じパスワードを入力してください。')
         return
       }
-      if (forms.password.length < 6) {
-        alert('パスワードは6文字以上で登録してください。')
-        return
-      }
+
       const params = {
         name: 'name',
         email: forms.email,
@@ -85,10 +122,28 @@ export default {
     }
     return {
       ...toRefs(forms),
+      ...toRefs(formsError),
       onRegisterButtonPushed,
       completedCondition,
     }
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.error-text::before {
+  margin-top: -4px;
+  display: inline-block;
+  margin-right: 4px;
+  content: '!';
+  font-weight: 800;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  vertical-align: middle;
+  text-align: center;
+  border-radius: 50%;
+  background: #fc8181;
+  color: #fff;
+  font-size: 11px;
+}
+</style>
